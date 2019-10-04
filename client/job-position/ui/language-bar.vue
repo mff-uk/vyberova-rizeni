@@ -8,7 +8,7 @@
       >
         {{ language }}
         <v-btn
-          v-if="index > 1"
+          v-if="index > 1 && !readOnly"
           icon
           danger
           style="margin-left: 1rem;"

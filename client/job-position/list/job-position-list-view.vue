@@ -34,6 +34,7 @@
   import {
     STORE_NAME,
     GET_JOB_POSITIONS,
+    GET_ALL_LANGUAGES,
   } from "../job-position-store";
   import JobPositionList from "./list";
   import JobPositionListHtml from "./html-list";
@@ -43,10 +44,10 @@
     TIME,
     ORGANIZATION_STRUCTURE,
     ROLE,
-    WAGE_CLASS
+    WAGE_CLASS,
   } from "../codelist-names";
   import {
-    LOAD_CODELIST
+    LOAD_CODELIST,
   } from "../../codelist";
 
   // https://codepen.io/retrofuturistic/pen/tlbHE
@@ -60,11 +61,11 @@
     },
     "data": () => ({
       "language": "cs",
-      "languages": ["cs", "en"]
     }),
     "computed": {
       ...mapGetters(STORE_NAME, {
-        "positions": GET_JOB_POSITIONS
+        "positions": GET_JOB_POSITIONS,
+        "languages": GET_ALL_LANGUAGES,
       }),
     },
     "mounted": function () {

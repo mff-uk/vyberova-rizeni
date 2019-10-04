@@ -10,6 +10,8 @@ export const GET_JOB_POSITION = "GET_JOB_POSITION";
 
 export const GET_JOB_POSITIONS = "GET_JOB_POSITIONS";
 
+export const GET_ALL_LANGUAGES = "GET_ALL_LANGUAGES";
+
 const CREATE_ACTION = "CREATE_JOB_POSITION";
 export const CREATE_JOB_POSITION = STORE_NAME + "/" + CREATE_ACTION;
 
@@ -75,6 +77,15 @@ export function createStore() {
       },
       [GET_JOB_POSITION]: (state) => {
         return state.selected;
+      },
+      [GET_ALL_LANGUAGES]: (state) => {
+        const languages = new Set();
+        state.jobPositions.forEach((position) => {
+          position.languages.forEach((language) => {
+            languages.add(language);
+          })
+        });
+        return [...languages];
       },
     },
     "actions": {
