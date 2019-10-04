@@ -43,7 +43,7 @@
   export default {
     "name": "language-bar",
     "components": {
-      "add-language-dialog": AddLanguageDialog
+      "add-language-dialog": AddLanguageDialog,
     },
     "data": () => ({
       "showDialog": false,
