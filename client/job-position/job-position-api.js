@@ -24,16 +24,7 @@ export function createJobPosition(code) {
     "expertise": [],
     "qualification": [],
     "documents": [],
-    "description": {
-      "cs": {
-        "value": "",
-        "errors": [MISSING_VALUE]
-      },
-      "en": {
-        "value": null,
-        "errors": [MISSING_VALUE]
-      },
-    },
+    "description": createEmptyMultilanguage(["cs", "en"]),
     // List of all languages.
     "languages": ["cs", "en"]
   };
@@ -280,6 +271,17 @@ function multilanguageToJson(item) {
       return;
     }
     result[lang] = item[lang].value;
+  });
+  return result;
+}
+
+export function createEmptyMultilanguage(languages) {
+  const result = {};
+  languages.forEach((language) => {
+    result[language] = {
+      "value": "",
+      "errors": [MISSING_VALUE],
+    }
   });
   return result;
 }

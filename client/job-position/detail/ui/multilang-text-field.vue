@@ -15,13 +15,16 @@
         </v-icon>
       </v-btn>
     </div>
-    <div
+    <v-chip
       v-if="!isEmpty"
       class="text-area"
+      close
+      @click:close="onClear"
       @click="onEdit"
     >
       {{ labelSelector(value) }}
-    </div>
+      <br/>
+    </v-chip>
   </div>
 </template>
 
@@ -60,6 +63,9 @@
     "methods": {
       "onEdit": function () {
         this.$emit("edit", this.value);
+      },
+      "onClear": function () {
+        this.$emit("clear");
       }
     }
   }
@@ -67,12 +73,8 @@
 
 <style scoped>
   .text-area {
-    white-space: pre-wrap;
-    background-color: #e0e0e0;
-    cursor: pointer;
-    border-radius: 2rem;
-    width: fit-content;
-    padding: 0.5rem 1rem 0.5rem 1rem;
+    height: 100% !important;
+    white-space: pre-line !important;
   }
 
   .button {

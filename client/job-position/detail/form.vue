@@ -156,6 +156,7 @@
         label="Volný text"
         :label-selector="labelSelector"
         @edit="onEditDescription"
+        @clear="onClearDescription"
       />
     </form>
     <edit-multilang-dialog
@@ -174,12 +175,13 @@
   import MultilangTextField from "./ui/multilang-text-field";
   import EditDialog from "./ui/edit-multilang-dialog";
   import {
-    ADD_VALUE, EDIT_VALUE, DELETE_VALUE, UPDATE_DESCRIPTION
+    ADD_VALUE, EDIT_VALUE, DELETE_VALUE, UPDATE_DESCRIPTION,
   } from "./../job-position-store";
   import {
     createValue,
     multiLangValueToArray,
-    arrayToMultiLangValue
+    arrayToMultiLangValue,
+    createEmptyMultilanguage,
   } from "./../job-position-api";
   import {
     GET_CODELIST,
@@ -190,9 +192,8 @@
     ORGANIZATION_STRUCTURE,
     ROLE,
     DEPARTMENT,
-    TIME
+    TIME,
   } from "../codelist-names"
-
 
   export default {
     "name": "job-position-form",
@@ -295,8 +296,15 @@
         this.editDialog.callback = this.callbackEditDescription;
       },
       "callbackEditDescription": function (value) {
-        this.$store.dispatch(UPDATE_DESCRIPTION, arrayToMultiLangValue(value));
-      }
+        this.$store.dispatch(
+          UPDATE_DESCRIPTION,
+          arrayToMultiLangValue(value));
+      },
+      "onClearDescription": function () {
+        this.$store.dispatch(
+          UPDATE_DESCRIPTION,
+          createEmptyMultilanguage(this.value.languages));
+      },
     }
   }
 
@@ -306,10 +314,4 @@
   .trailing-space {
     padding-right: 1rem;
   }
-
-  .row {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
 </style>
