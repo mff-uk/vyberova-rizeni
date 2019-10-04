@@ -55,10 +55,6 @@ export function createStore() {
     "state": {
       "selected": null,
       "jobPositions": [
-        createJobPosition("0000"),
-        // createJobPosition("0001"),
-        // createJobPosition("0002"),
-        // createJobPosition("0003"),
       ]
     },
     "mutations": {
