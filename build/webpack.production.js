@@ -41,7 +41,7 @@ module.exports = merge(common, {
       "filename": "[name].[chunkhash].css"
     }),
     new CopyPlugin([
-      { "from": "./data/public", "to": "./dist/api/v1/data" },
+      { "from": "./data/public", "to": "./api/v1/data" },
     ]),
   ]
 });
