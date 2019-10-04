@@ -43,6 +43,7 @@ export function createJobPosition(code) {
  * Add language to given job position.
  */
 export function addLanguage(jobPosition, language) {
+  language = language.toLowerCase();
   if (jobPosition.languages.indexOf(language) !== -1) {
     return jobPosition;
   }
