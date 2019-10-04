@@ -1,0 +1,28 @@
+{
+  "@context": "https://data.gov.cz/otevřené-formální-normy/číselníky/draft/schémata/číselníky.context.jsonld",
+  "id": "https://data.mff.cuni.cz/zdroj/číselník/úvazek",
+  "typ": "číselník",
+  "název-číselníku": {
+    "cs": "Úvazek"
+  },
+  "položky": [
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/úvazek/plný",
+      "kód": "plný",
+      "název": {
+        "cs": "Plný",
+        "en": "Full time"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/úvazek/zkrácený",
+      "kód": "zkrácený",
+      "název": {
+        "cs": "Zkrácený",
+        "en": "Part time"
+      }
+    }
+  ]
+}

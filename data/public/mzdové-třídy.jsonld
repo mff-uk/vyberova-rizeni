@@ -1,0 +1,164 @@
+{
+  "@context": "https://data.gov.cz/otevřené-formální-normy/číselníky/draft/schémata/číselníky.context.jsonld",
+  "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy",
+  "typ": "číselník",
+  "název-číselníku": {
+    "cs":  "Mzdové třídy MFF UK",
+    "en":  "Salary tariffs FMP CUNI"
+  },
+  "položky": [
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/AP1",
+      "kód": "AP1",
+      "název": {
+        "cs": "AP1",
+        "en": "AP1"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/AP2",
+      "kód": "AP2",
+      "název": {
+        "cs": "AP2",
+        "en": "AP2"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/AP3",
+      "kód": "AP3",
+      "název": {
+        "cs": "AP3",
+        "en": "AP3"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/AP4",
+      "kód": "AP4",
+      "název": {
+        "cs": "AP4",
+        "en": "AP4"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/L1",
+      "kód": "L1",
+      "název": {
+        "cs": "L1",
+        "en": "L1"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/L2",
+      "kód": "L2",
+      "název": {
+        "cs": "L2",
+        "en": "L2"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/VP1",
+      "kód": "VP1",
+      "název": {
+        "cs": "VP1",
+        "en": "VP1"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/VP2",
+      "kód": "VP2",
+      "název": {
+        "cs": "VP2",
+        "en": "VP2"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/VP3",
+      "kód": "VP3",
+      "název": {
+        "cs": "VP3",
+        "en": "VP3"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/1",
+      "kód": "1",
+      "název": {
+        "cs": "1",
+        "en": "1"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/2",
+      "kód": "2",
+      "název": {
+        "cs": "2",
+        "en": "2"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/3",
+      "kód": "3",
+      "název": {
+        "cs": "3",
+        "en": "3"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/4",
+      "kód": "4",
+      "název": {
+        "cs": "4",
+        "en": "4"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/5",
+      "kód": "5",
+      "název": {
+        "cs": "5",
+        "en": "5"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/6",
+      "kód": "6",
+      "název": {
+        "cs": "6",
+        "en": "6"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/7",
+      "kód": "7",
+      "název": {
+        "cs": "7",
+        "en": "7"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/mzdové-třídy/8",
+      "kód": "8",
+      "název": {
+        "cs": "8",
+        "en": "8"
+      }
+    }
+  ]
+}

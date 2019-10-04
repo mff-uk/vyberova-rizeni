@@ -1,0 +1,470 @@
+{
+  "@context": "https://data.gov.cz/otevřené-formální-normy/číselníky/draft/schémata/číselníky.context.jsonld",
+  "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura",
+  "typ": "číselník",
+  "název-číselníku": {
+    "cs":  "Organizační struktura MFF UK",
+    "en":  "Organizational structure of FMP CUNI"
+  },
+  "položky": [
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/1",
+      "kód": "1",
+      "název": {
+        "cs": "Akademický senát",
+        "en": "Academic Senate"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/101",
+      "kód": "101",
+      "název": {
+        "cs": "Astronomický ústav UK",
+        "en": "Astronomical Institute of Charles University"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/102",
+      "kód": "102",
+      "název": {
+        "cs": "Fyzikální ústav UK",
+        "en": "Institute of Physics of Charles University"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/103",
+      "kód": "103",
+      "název": {
+        "cs": "Kabinet výuky obecné fyziky",
+        "en": "Laboratory of General Physics Education"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/104",
+      "kód": "104",
+      "název": {
+        "cs": "Katedra didaktiky fyziky",
+        "en": "Department of Physics Education"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/105",
+      "kód": "105",
+      "název": {
+        "cs": "Katedra fyziky povrchů a plazmatu",
+        "en": "Department of Surface and Plasma Science"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/106",
+      "kód": "106",
+      "název": {
+        "cs": "Katedra fyziky materiálů",
+        "en": "Department of Physics of Materials"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/107",
+      "kód": "107",
+      "název": {
+        "cs": "Katedra fyziky nízkých teplot",
+        "en": "Department of Low Temperature Physics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/109",
+      "kód": "109",
+      "název": {
+        "cs": "Katedra fyziky kondenzovaných látek",
+        "en": "Department of Condensed Matter Physics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/110",
+      "kód": "110",
+      "název": {
+        "cs": "Katedra makromolekulární fyziky",
+        "en": "Department of Macromolecular Physics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/111",
+      "kód": "111",
+      "název": {
+        "cs": "Katedra geofyziky",
+        "en": "Department of Geophysics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/113",
+      "kód": "113",
+      "název": {
+        "cs": "Katedra chemické fyziky a optiky",
+        "en": "Department of Chemical Physics and Optics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/114",
+      "kód": "114",
+      "název": {
+        "cs": "Ústav částicové a jaderné fyziky",
+        "en": "Institute of Particle and Nuclear Physics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/115",
+      "kód": "115",
+      "název": {
+        "cs": "Katedra fyziky atmosféry",
+        "en": "Department of Atmospheric Physics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/116",
+      "kód": "116",
+      "název": {
+        "cs": "Ústav teoretické fyziky",
+        "en": "Institute of Theoretical Physics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/117",
+      "kód": "117",
+      "název": {
+        "cs": "Počítačová síť Troja",
+        "en": "Computer network Troja"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/2",
+      "kód": "2",
+      "název": {
+        "cs": "Vedení fakulty",
+        "en": "Management of the Faculty"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/201",
+      "kód": "201",
+      "název": {
+        "cs": "Katedra softwaru a výuky informatiky",
+        "en": "Department of Software and Computer Science Education"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/202",
+      "kód": "202",
+      "název": {
+        "cs": "Katedra aplikované matematiky",
+        "en": "Department of Applied Mathematics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/203",
+      "kód": "203",
+      "název": {
+        "cs": "Katedra distribuovaných a spolehlivých systémů",
+        "en": "Department of Distributed and Dependable Systems"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/204",
+      "kód": "204",
+      "název": {
+        "cs": "Katedra softwarového inženýrství",
+        "en": "Department of Software Engineering"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/205",
+      "kód": "205",
+      "název": {
+        "cs": "Katedra teoretické informatiky a matematické logiky",
+        "en": "Department of Theoretical Computer Science and Mathematical Logic"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/206",
+      "kód": "206",
+      "název": {
+        "cs": "Středisko informatické sítě a laboratoří",
+        "en": "Network and Labs Management Center"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/207",
+      "kód": "207",
+      "název": {
+        "cs": "Ústav formální a aplikované lingvistiky",
+        "en": "Institute of Formal and Applied Linguistics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/208",
+      "kód": "208",
+      "název": {
+        "cs": "Informatický ústav Univerzity Karlovy",
+        "en": "Computer Science Institute of Charles University"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/3",
+      "kód": "3",
+      "název": {
+        "cs": "Vědecká rada",
+        "en": "Scientific Council"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/301",
+      "kód": "301",
+      "název": {
+        "cs": "Katedra algebry",
+        "en": "Department of Algebra"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/302",
+      "kód": "302",
+      "název": {
+        "cs": "Katedra didaktiky matematiky",
+        "en": "Department of Mathematics Education"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/303",
+      "kód": "303",
+      "název": {
+        "cs": "Katedra matematické analýzy",
+        "en": "Department of Mathematical Analysis"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/304",
+      "kód": "304",
+      "název": {
+        "cs": "Katedra numerické matematiky",
+        "en": "Department of Numerical Mathematics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/305",
+      "kód": "305",
+      "název": {
+        "cs": "Katedra pravděpodobnosti a matematické statistiky",
+        "en": "Department of Probability and Mathematical Statistics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/306",
+      "kód": "306",
+      "název": {
+        "cs": "Matematický ústav UK",
+        "en": "Mathematical Institute of Charles University"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/4",
+      "kód": "4",
+      "název": {
+        "cs": "Disciplinární komise",
+        "en": "Disciplinary Board"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/5",
+      "kód": "5",
+      "název": {
+        "cs": "Poradní orgány vedení fakulty",
+        "en": "The Advisory Body of the Faculty Management"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/511",
+      "kód": "511",
+      "název": {
+        "cs": "Knihovna fakulty",
+        "en": "Library"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/512",
+      "kód": "512",
+      "název": {
+        "cs": "Katedra jazykové přípravy",
+        "en": "Department of Language Education"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/513",
+      "kód": "513",
+      "název": {
+        "cs": "Katedra tělesné výchovy",
+        "en": "Department of Physical Education"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/612",
+      "kód": "612",
+      "název": {
+        "cs": "Reprografické středisko fakulty",
+        "en": "Reprographic Centre"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/613",
+      "kód": "613",
+      "název": {
+        "cs": "Konferenční a společenské centrum \"Profesní dům\"",
+        "en": "Conference and Social Center \"House for Professed\""
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/721",
+      "kód": "721",
+      "název": {
+        "cs": "Sekretariát",
+        "en": "Secretary Office"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/722",
+      "kód": "722",
+      "název": {
+        "cs": "Hospodářské oddělení",
+        "en": "Financial Department"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/723",
+      "kód": "723",
+      "název": {
+        "cs": "Oddělení pro vědu a zahraniční styky",
+        "en": "Research and International Affairs Department"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/724",
+      "kód": "724",
+      "název": {
+        "cs": "Studijní oddělení",
+        "en": "Student Affairs Department"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/726",
+      "kód": "726",
+      "název": {
+        "cs": "Zaměstnanecké oddělení",
+        "en": "Department of Human Resources"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/728",
+      "kód": "728",
+      "název": {
+        "cs": "Správa počítačové sítě Karlov a centrálního informačního uzlu",
+        "en": "IS/IT Division"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/729",
+      "kód": "729",
+      "název": {
+        "cs": "Oddělení propagace a mediální komunikace",
+        "en": "Media Communications and PR Office"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/731",
+      "kód": "731",
+      "název": {
+        "cs": "Správa budov",
+        "en": "Department of Building Maintenance"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/732",
+      "kód": "732",
+      "název": {
+        "cs": "Referát energetika",
+        "en": "Power Management Office"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/733",
+      "kód": "733",
+      "název": {
+        "cs": "Referát požárního a bezpečnostního technika",
+        "en": "Fire and Security Division"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/734",
+      "kód": "734",
+      "název": {
+        "cs": "Referát interního auditu a právních služeb",
+        "en": "Department of Internal Audit and Legal Services"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/735",
+      "kód": "735",
+      "název": {
+        "cs": "Oddělení firemní spolupráce a kariérního poradenství",
+        "en": "Department for Business Cooperation and Career Counselling"
+      }
+    }
+  ]
+}

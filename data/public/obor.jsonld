@@ -1,0 +1,37 @@
+{
+  "@context": "https://data.gov.cz/otevřené-formální-normy/číselníky/draft/schémata/číselníky.context.jsonld",
+  "id": "https://data.mff.cuni.cz/zdroj/číselník/obor",
+  "typ": "číselník",
+  "název-číselníku": {
+    "cs": "Obor"
+  },
+  "položky": [
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/obor/matematika",
+      "kód": "matematika",
+      "název": {
+        "cs": "Matematika",
+        "en": "Mathematics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/obor/fyzika",
+      "kód": "fyzika",
+      "název": {
+        "cs": "Fyzika",
+        "en": "Physics"
+      }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/obor/informatika",
+      "kód": "informatika",
+      "název": {
+        "cs": "Informatika",
+        "en": "Informatics"
+      }
+    }
+  ]
+}
