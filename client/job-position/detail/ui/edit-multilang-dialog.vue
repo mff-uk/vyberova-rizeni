@@ -38,15 +38,14 @@
           text
           @click="onDiscard"
         >
-          Discard changes
+          Zahodit změny
         </v-btn>
         <v-btn
           color="green darken-1"
           text
-          :disabled="!isValid"
           @click="onSave"
         >
-          Save changes
+          Uložit změny
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -72,11 +71,6 @@
         "required": false,
       }
     },
-    "computed": {
-      "isValid": function () {
-        return isDialogValid(this.value);
-      }
-    },
     "methods": {
       "onChange": function (item) {
         validateItem(item);
@@ -98,19 +92,6 @@
     } else {
       item.errors = [];
     }
-  }
-
-  function isDialogValid(value) {
-    for (let index in value) {
-      if (!value.hasOwnProperty(index)) {
-        continue;
-      }
-      let item = value[index];
-      if (item.errors.length > 0) {
-        return false;
-      }
-    }
-    return true;
   }
 
 </script>
