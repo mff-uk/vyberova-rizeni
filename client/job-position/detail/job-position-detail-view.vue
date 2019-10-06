@@ -15,26 +15,18 @@
           @add="onAddLanguage"
         />
         <div class="ma-1">
+          <buttons
+            @save="onSaveChanges"
+            @discard="onDiscardChanges"
+          />
           <job-form
             v-model="position"
             :language="formLanguage"
           />
-          <div class="bottom-button-line">
-            <div class="flex-grow-1" />
-            <v-btn
-              text
-              @click="onDiscardChanges"
-            >
-              Zahoď změny a zavři
-            </v-btn>
-            <v-btn
-              color="green darken-1"
-              text
-              @click="onSaveChanges"
-            >
-              Ulož a zavři
-            </v-btn>
-          </div>
+          <buttons
+            @save="onSaveChanges"
+            @discard="onDiscardChanges"
+          />
         </div>
       </v-col>
       <v-col
@@ -82,13 +74,15 @@
   import {
     LOAD_CODELIST,
   } from "../../codelist";
+  import FormButtons from "./form-buttons";
 
   export default {
     "name": "job-position-detail-view",
     "components": {
       "job-preview": JobPositionHtml,
       "job-form": JobPositionForm,
-      "language-bar": LanguageBar
+      "language-bar": LanguageBar,
+      "buttons": FormButtons,
     },
     "data": () => ({
       "formLanguage": "cs",
