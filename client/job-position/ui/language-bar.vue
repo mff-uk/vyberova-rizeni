@@ -2,7 +2,7 @@
   <div>
     <v-tabs>
       <v-tab
-        v-for="(language, index) in languages"
+        v-for="(language, index) in languageList"
         :key="index"
         @click="onChange(language)"
       >
@@ -61,6 +61,17 @@
         "type": Boolean,
         "default": false
       },
+    },
+    "computed": {
+      "languageList": function() {
+        const result = ["cs", "en"];
+        [...this.languages].sort().forEach((item) => {
+          if (result.indexOf(item) === -1) {
+            result.push(item);
+          }
+        });
+        return result;
+      }
     },
     "methods": {
       "onChange": function (language) {
