@@ -21,7 +21,7 @@
           text
           @click="onDiscard"
         >
-          Discard changes
+          Zahodit změny
         </v-btn>
         <v-btn
           color="green darken-1"
@@ -29,7 +29,7 @@
           :disabled="!isValid"
           @click="onSave"
         >
-          Save changes
+          Uložit změny
         </v-btn>
       </v-card-actions>
     </v-card>
