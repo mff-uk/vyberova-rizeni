@@ -79,9 +79,7 @@
         this.$emit("close");
       },
       "onSave": function () {
-        if (this.isValid) {
-          this.$emit("save", this.value);
-        }
+        this.$emit("save", this.value);
       },
     }
   }
