@@ -51,6 +51,14 @@
         "cs": "Lektor/ka",
         "en": "Lecturer"
       }
-    }
+    },
+    {
+      "typ": "položka",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/role/vedoucí-katedry",
+      "kód": "vedoucí-katedry",
+      "název": {
+        "cs": "Vedoucí katedry",
+        "en": "Head of Department"
+      }
   ]
 }
