@@ -81,7 +81,7 @@ function loadCodelistAction(context, name) {
         "codelist": loadCzechCodeList(response.json)
       });
     }).catch((error) => {
-    console.error(error);
+    console.error("Can't parse codelist: ", name, error);
     context.commit(failFetchingCodelist.name, {"name": name});
   });
 }
