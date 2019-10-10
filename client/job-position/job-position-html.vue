@@ -119,7 +119,11 @@
       if (item["@id"] !== value) {
         continue;
       }
-      return item[language];
+      if (item[language]) {
+        return item[language];
+      } else {
+        return item["cs"];
+      }
     }
     return value;
   }

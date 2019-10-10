@@ -90,7 +90,7 @@
         :items="organizationCodelist"
         label="Pracoviště"
         item-value="@id"
-        :item-text="language"
+        :item-text="selectLabel"
       />
       <v-autocomplete
         id="role"
@@ -98,7 +98,7 @@
         :items="roleCodelist"
         label="Role"
         item-value="@id"
-        :item-text="language"
+        :item-text="selectLabel"
       />
       <v-autocomplete
         id="wageClass"
@@ -106,7 +106,7 @@
         :items="wageClassCodelist"
         label="Platová třída"
         item-value="@id"
-        :item-text="language"
+        :item-text="selectLabel"
       />
       <v-autocomplete
         id="workingHours"
@@ -114,7 +114,7 @@
         :items="timeCodelist"
         label="Úvazek"
         item-value="@id"
-        :item-text="language"
+        :item-text="selectLabel"
       />
       <v-autocomplete
         id="department"
@@ -122,7 +122,7 @@
         :items="departmentCodelist"
         label="Obor"
         item-value="@id"
-        :item-text="language"
+        :item-text="selectLabel"
       />
       <multiline-chips
         id="researchField"
@@ -319,6 +319,13 @@
           UPDATE_DESCRIPTION,
           createEmptyMultilanguage(this.value.languages));
       },
+      "selectLabel": function(value) {
+        if (value[this.language]) {
+          return value[this.language];
+        } else {
+          return value["cs"];
+        }
+      }
     }
   }
 
