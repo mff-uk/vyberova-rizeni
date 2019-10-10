@@ -38,35 +38,49 @@
       >
         <v-flex
           xs12
-          md4
+          md6
           class="trailing-space"
         >
           <date-picker
             id="startDate"
-            v-model="value.startDate"
-            label="Nástup od"
-            :disabled="value.startFluid"
+            v-model="value.applicationStart"
+            label="Datum podávání přihlášek do"
           />
         </v-flex>
         <v-flex
           xs12
-          md4
+          md6
           class="trailing-space"
         >
           <date-picker
             id="endDate"
-            v-model="value.endDate"
+            v-model="value.applicationEnd"
             label="do"
-            :disabled="value.startFluid"
+          />
+        </v-flex>
+      </v-layout>
+      <v-layout
+        row
+        wrap
+      >
+        <v-flex
+          xs12
+          md6
+          class="trailing-space"
+        >
+          <date-picker
+            id="startDate"
+            v-model="value.start"
+            label="Datum nástupu"
           />
         </v-flex>
         <v-flex
           xs12
-          md3
+          md6
         >
           <v-switch
-            v-model="value.startFluid"
-            label="Dle dohody"
+            v-model="value.fluidStart"
+            label="Nástup dle dohody"
           />
         </v-flex>
       </v-layout>
