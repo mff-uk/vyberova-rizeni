@@ -32,33 +32,11 @@
           />
         </v-flex>
       </v-layout>
-      <v-layout
-        row
-        wrap
-      >
-        <v-flex
-          xs12
-          md6
-          class="trailing-space"
-        >
-          <date-picker
-            id="startDate"
-            v-model="value.applicationStart"
-            label="Datum podávání přihlášek do"
-          />
-        </v-flex>
-        <v-flex
-          xs12
-          md6
-          class="trailing-space"
-        >
-          <date-picker
-            id="endDate"
-            v-model="value.applicationEnd"
-            label="do"
-          />
-        </v-flex>
-      </v-layout>
+      <date-picker
+        id="startDate"
+        v-model="value.applicationEnd"
+        label="Datum podávání přihlášek do"
+      />
       <v-layout
         row
         wrap

@@ -10,7 +10,6 @@ export function createJobPosition(code) {
   return {
     "code": code,
     "email": DEFAULT_EMAIL,
-    "applicationStart": null,
     "applicationEnd": null,
     "start": null,
     "fluidStart": true,
@@ -176,7 +175,6 @@ export function loadPositionsFromString(json) {
     jobPositions.push({
       "code": item["code"],
       "email": item["email"],
-      "applicationStart": item["startDate"],
       "applicationEnd": item["endDate"],
       "start": item["start"],
       "fluidStart": item["fluidStart"],
@@ -242,7 +240,6 @@ export function savePositionsToString(positions) {
       return {
         "code": position["code"],
         "email": position["email"],
-        "applicationStart": position["startDate"],
         "applicationEnd": position["endDate"],
         "start": position["start"],
         "fluidStart": position["fluidStart"],

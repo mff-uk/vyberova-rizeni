@@ -2,7 +2,7 @@
   <div>
     <b>code:</b> {{ value.code }} <br>
     <b>email:</b> {{ value.email }} <br>
-    <b>hiring:</b> {{ value.applicationStart }} - {{ value.applicationEnd }} <br>
+    <b>hiring:</b> {{ value.applicationEnd }} <br>
     <b>start:</b> {{value.start}} <span v-if="value.fluidStart">nebo dle dohody</span> <br/>
     <b>working place:</b> {{ workingPlaceLabel }} <br>
     <b>role:</b> {{ roleLabel }} <br>
