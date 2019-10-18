@@ -6,7 +6,7 @@
     app
   >
     <v-toolbar-title class="title">
-      Otevřená Data MFF
+      Výběrová řízení
     </v-toolbar-title>
     <v-btn
       v-for="item in navigation"
