@@ -7,7 +7,6 @@
         label="Identifikátor"
       />
       <v-layout
-        row
         wrap
       >
         <v-flex
@@ -38,7 +37,6 @@
         label="Datum podávání přihlášek do"
       />
       <v-layout
-        row
         wrap
       >
         <v-flex
