@@ -9,8 +9,6 @@ export function fetchCodelist(name) {
       "json": cache[name],
     });
   }
-  console.log("cache:", JSON.stringify(cache));
-  console.log("request:", name, cache[name]);
   const url = "./api/v1/data/" + encodeURI(name) + ".json";
   return fetchJson(url);
 }
