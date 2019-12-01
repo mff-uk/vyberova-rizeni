@@ -2,11 +2,14 @@ const path = require("path");
 const webpack = require("webpack");
 const {VueLoaderPlugin} = require("vue-loader");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackInlineSourcePlugin =
+  require("html-webpack-inline-source-plugin");
 
 module.exports = {
-  "entry": [
-    path.join(__dirname, "..", "client", "index.js")
-  ],
+  "entry": {
+    "main": path.join(__dirname, "..", "client", "index.js"),
+    "standalone": path.join(__dirname, "..", "client", "index-standalone.js"),
+  },
   "output": {
     "path": path.join(__dirname, "..", "dist"),
     "filename": "bundle.js",
@@ -49,8 +52,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       "filename": "index.html",
       "template": path.join(__dirname, "..", "public", "index.html"),
-      "inject": true
+      "inject": true,
+      "chunks": ["main", "vendor"],
     }),
-    new webpack.DefinePlugin({})
+    new HtmlWebpackPlugin({
+      "filename": "index-standalone.html",
+      "template": path.join(__dirname, "..", "public", "index.html"),
+      "inject": true,
+      "chunks": ["standalone", "vendor"],
+      "inlineSource": ".(js|css)$",
+    }),
+    new webpack.DefinePlugin({}),
+    new HtmlWebpackInlineSourcePlugin(),
   ]
 };
