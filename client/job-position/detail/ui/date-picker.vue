@@ -9,9 +9,7 @@
     :disabled="disabled"
     transition="scale-transition"
     min-width="15rem"
-    lazy
     offset-y
-    full-width
   >
     <template v-slot:activator="{on}">
       <v-text-field
