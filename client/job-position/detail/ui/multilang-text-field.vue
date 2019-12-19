@@ -23,7 +23,7 @@
       @click="onEdit"
     >
       {{ labelSelector(value) }}
-      <br/>
+      <br>
     </v-chip>
   </div>
 </template>
