@@ -19,7 +19,6 @@ Vue.use(VueRouter);
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
-console.log("RENDER APP");
 /* eslint-disable no-new */
 new Vue({
   "el": "#app",
