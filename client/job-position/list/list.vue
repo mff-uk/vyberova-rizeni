@@ -74,7 +74,7 @@
   } from "../job-position-store";
   import FileUpload from "./ui/file-upload";
   import JobDetail from "../detail";
-  import {loadPositionsFromString, savePositionsToString} from "./../job-position-api";
+  import {loadPositionsFromJson, savePositionsToString} from "./../job-position-api";
 
   // https://codepen.io/retrofuturistic/pen/tlbHE
 
@@ -105,7 +105,7 @@
       },
       "onUpload": function (files) {
         const onLoad = (file, reader) => {
-          const content = loadPositionsFromString(JSON.parse(reader.result));
+          const content = loadPositionsFromJson(JSON.parse(reader.result));
           this.$store.dispatch(LOAD_JOB_POSITIONS, {"payload": content});
         };
         for (let i = 0; i < files.length; i++) {

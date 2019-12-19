@@ -1,4 +1,5 @@
 import {MISSING_VALUE} from "./../app-service/validators";
+import {JobPositionReader, JobPositionWriter} from "./job-position-io";
 
 const DEFAULT_EMAIL = "konkurzy@dekanat.mff.cuni.cz";
 
@@ -169,110 +170,19 @@ export function selectLabel(value, language) {
   return value[DEFAULT_LANGUAGE].value;
 }
 
-export function loadPositionsFromString(json) {
-  const jobPositions = [];
-  json["@graph"].forEach((item) => {
-    jobPositions.push({
-      "code": item["code"],
-      "email": item["email"],
-      "applicationEnd": item["endDate"],
-      "start": item["start"],
-      "fluidStart": item["fluidStart"],
-      "workingPlace": item["workingPlace"],
-      "role": item["role"],
-      "wageClass": item["wageClass"],
-      "workingHours": item["workingHours"],
-      "department": item["department"],
-      "emailInformal": item["emailInformal"],
-      "researchField": item["researchField"]
-        .map((item) => jsonToMultilanguage(item)),
-      "expertise": item["expertise"]
-        .map((item) => jsonToMultilanguage(item)),
-      "qualification": item["qualification"]
-        .map((item) => jsonToMultilanguage(item)),
-      "documents": item["documents"]
-        .map((item) => jsonToMultilanguage(item)),
-      "description": jsonToMultilanguage(item["description"]),
-      "languages": collectLanguages(item),
-    })
-  });
-  return jobPositions;
-}
-
-function collectLanguages(json) {
-  let languages = [
-    ...collectLanguagesFromMultilanguage(json["description"]),
-  ];
-  json["researchField"].forEach((item) => {
-    languages = [...languages, ...collectLanguagesFromMultilanguage(item)];
-  });
-  json["expertise"].forEach((item) => {
-    languages = [...languages, ...collectLanguagesFromMultilanguage(item)];
-  });
-  json["qualification"].forEach((item) => {
-    languages = [...languages, ...collectLanguagesFromMultilanguage(item)];
-  });
-  json["documents"].forEach((item) => {
-    languages = [...languages, ...collectLanguagesFromMultilanguage(item)];
-  });
-  return [...new Set(languages)];
-}
-
-function collectLanguagesFromMultilanguage(value) {
-  return Object.keys(value);
-}
-
-function jsonToMultilanguage(json) {
-  const result = {};
-  Object.keys(json).forEach((lang) => {
-    result[lang] = {
-      "value": json[lang],
-      "errors": []
-    }
-  });
-  return result;
+export function loadPositionsFromJson(json) {
+  const reader = new JobPositionReader();
+  const positions = reader.read(json);
+  // Merge with default to add missing values.
+  return positions.map((position) => ({
+    ...createJobPosition(position["code"]),
+    ...position
+  }));
 }
 
 export function savePositionsToString(positions) {
-  const result = {
-    "@context": {},
-    "@graph": positions.map((position) => {
-      return {
-        "code": position["code"],
-        "email": position["email"],
-        "applicationEnd": position["endDate"],
-        "start": position["start"],
-        "fluidStart": position["fluidStart"],
-        "workingPlace": position["workingPlace"],
-        "role": position["role"],
-        "wageClass": position["wageClass"],
-        "workingHours": position["workingHours"],
-        "department": position["department"],
-        "emailInformal": position["emailInformal"],
-        "researchField": position["researchField"]
-          .map((item) => multilanguageToJson(item)),
-        "expertise": position["expertise"]
-          .map((item) => multilanguageToJson(item)),
-        "qualification": position["qualification"]
-          .map((item) => multilanguageToJson(item)),
-        "documents": position["documents"]
-          .map((item) => multilanguageToJson(item)),
-        "description": multilanguageToJson(position["description"]),
-      }
-    }),
-  };
-  return JSON.stringify(result, null, 2);
-}
-
-function multilanguageToJson(item) {
-  const result = {};
-  Object.keys(item).forEach((lang) => {
-    if (item[lang].value === undefined || item[lang].value === null) {
-      return;
-    }
-    result[lang] = item[lang].value;
-  });
-  return result;
+  const writer = new JobPositionWriter();
+  return writer.write(positions);
 }
 
 export function createEmptyMultilanguage(languages) {
