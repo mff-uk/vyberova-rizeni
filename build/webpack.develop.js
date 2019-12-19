@@ -5,9 +5,13 @@ const common = Object.assign({}, require("./webpack.common"));
 module.exports = merge(common, {
   "mode": "development",
   "devtool": "inline-source-map",
-  "entry": [
-    "webpack-hot-middleware/client"
-  ],
+  "entry": {
+    "main":
+      [
+        common["entry"]["main"],
+        "webpack-hot-middleware/client"
+      ],
+  },
   "devServer": {
     "hot": true
   },
