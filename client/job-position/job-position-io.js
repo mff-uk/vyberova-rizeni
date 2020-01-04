@@ -1,3 +1,5 @@
+import {isBlank} from "../app-service/validators";
+
 const FORMAL_EMAIL_LABEL = "Oficiální e-mail";
 
 const INFORMAL_EMAIL_LABEL = "Neformální e-mail";
@@ -25,7 +27,7 @@ export function JobPositionReader() {
     setIfNotEmpty(result, "department", position["obor"]);
     loadContacts(result, position);
 
-    const description = jsonToMultilanguage(position["popis"]);
+    const description = jsonToMultilanguage(position["volnýText"]);
     if (description !== null) {
       result["description"] = description;
     }
@@ -43,7 +45,7 @@ export function JobPositionReader() {
       return;
     }
     if (value["inXSDDateTime"]) {
-      return value["inXSDDateTime"];
+      data[key] = value["inXSDDateTime"];
     }
   }
 
@@ -190,13 +192,13 @@ export function JobPositionWriter() {
         "inXSDDateTime": position["applicationEnd"],
       };
     }
-    if (position["description"]) {
+    if (!isBlank(position["description"])) {
       result["volnýText"] = multilanguageToJson(position["description"]);
     }
     result["oborVýzkumu"] = position["researchField"]
       .map((item) => multilanguageToJson(item))
       .map((values) => ({"@type": ["OborVýzkumu"], "název": values,}));
-    result["expertíza"] = position["researchField"]
+    result["expertíza"] = position["expertise"]
       .map((item) => multilanguageToJson(item))
       .map((values) => ({"@type": ["Expertíza"], "název": values,}));
     result["kvalifikace"] = position["qualification"]
@@ -211,7 +213,7 @@ export function JobPositionWriter() {
   function multilanguageToJson(item) {
     const result = [];
     Object.keys(item).forEach((lang) => {
-      if (item[lang].value === undefined || item[lang].value === null) {
+      if (isBlank(item[lang].value)) {
         return;
       }
       result.push({
@@ -252,6 +254,7 @@ function createContext() {
       "@id": "time:inXSDDateTime",
       "@type": "xsd:dateTime"
     },
+    "termínPodání": "ofn-v:termínPodání",
     "obor": {
       "@id": "ofn-v:obor",
       "@type": "@id",

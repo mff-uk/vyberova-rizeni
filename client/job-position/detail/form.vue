@@ -66,7 +66,7 @@
         :items="organizationCodelist"
         label="Pracoviště"
         item-value="@id"
-        :item-text="selectLabel"
+        :item-text="selectLabelWorking"
       />
       <v-autocomplete
         id="role"
@@ -203,6 +203,11 @@
         "callback": null
       },
     }),
+    "watch": {
+      "language": function() {
+        console.log("watch language");
+      }
+    } ,
     "computed": {
       "wageClassCodelist": function () {
         const name = CODELIST_STORE_NAME + "/" + GET_CODELIST;
@@ -295,9 +300,18 @@
           UPDATE_DESCRIPTION,
           createEmptyMultilanguage(this.value.languages));
       },
+      "selectLabelWorking": function(value) {
+        const currentValue = value[this.language];
+        if (currentValue) {
+          return currentValue;
+        } else {
+          return value["cs"];
+        }
+      },
       "selectLabel": function(value) {
-        if (value[this.language]) {
-          return value[this.language];
+        const currentValue = value[this.language];
+        if (currentValue) {
+          return currentValue;
         } else {
           return value["cs"];
         }
