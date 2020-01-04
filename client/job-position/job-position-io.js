@@ -1,4 +1,4 @@
-import {isBlank} from "../app-service/validators";
+import {isBlank, MISSING_VALUE} from "../app-service/validators";
 
 const FORMAL_EMAIL_LABEL = "Oficiální e-mail";
 
@@ -37,6 +37,12 @@ export function JobPositionReader() {
     setMultilanguage(result, "qualification", position["kvalifikace"]);
     setMultilanguage(result, "documents", position["dokumenty"]);
     result["languages"] = collectLanguages(result);
+
+    generateEmptyStrings(result["researchField"], result["languages"]);
+    generateEmptyStrings(result["qualification"], result["languages"]);
+    generateEmptyStrings(result["qualification"], result["languages"]);
+    generateEmptyStrings(result["documents"], result["languages"]);
+
     return result;
   }
 
@@ -129,6 +135,20 @@ export function JobPositionReader() {
       });
     }
     return [...new Set(languages)];
+  }
+
+  function generateEmptyStrings(values, languages) {
+    values.forEach((entry) => {
+      languages.forEach((language) => {
+        if (entry[language]) {
+          return;
+        }
+        entry[language] = {
+          "value": "",
+          "errors": [MISSING_VALUE]
+        }
+      });
+    });
   }
 
 }

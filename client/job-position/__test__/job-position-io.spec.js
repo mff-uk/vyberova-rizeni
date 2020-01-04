@@ -1,4 +1,5 @@
 import {JobPositionReader, JobPositionWriter} from "./../job-position-io";
+import {MISSING_VALUE} from "../../app-service/validators";
 
 describe("JobPositionIO", () => {
 
@@ -28,7 +29,7 @@ describe("JobPositionIO", () => {
           },
           "es": {
             "value": "",
-            "errors": [],
+            "errors": [MISSING_VALUE],
           }
         },
         {
@@ -38,7 +39,7 @@ describe("JobPositionIO", () => {
           },
           "en": {
             "value": "",
-            "errors": [],
+            "errors": [MISSING_VALUE],
           },
           "es": {
             "value": "research-field-es-II",

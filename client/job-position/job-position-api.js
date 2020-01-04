@@ -1,4 +1,4 @@
-import {MISSING_VALUE} from "./../app-service/validators";
+import {MISSING_VALUE, isBlank} from "./../app-service/validators";
 import {JobPositionReader, JobPositionWriter} from "./job-position-io";
 
 const DEFAULT_EMAIL = "konkurzy@dekanat.mff.cuni.cz";
@@ -66,7 +66,7 @@ function addLanguageToMultilanguage(value, language) {
   return {
     ...value,
     [language]: {
-      "value": null,
+      "value": "",
       "errors": [MISSING_VALUE]
     }
   }
@@ -164,7 +164,7 @@ export function arrayToMultiLangValue(value) {
 }
 
 export function selectLabel(value, language) {
-  if (value[language] && value[language].value !== null) {
+  if (value[language] && isBlank(value[language].value)) {
     return value[language].value;
   }
   return value[DEFAULT_LANGUAGE].value;
