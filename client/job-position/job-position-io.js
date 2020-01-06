@@ -261,11 +261,11 @@ function createContext() {
     "druh": "ofn-k:druh",
     "email": "ofn-k:email",
     "platováTřída": {
-      "@id": "mff-v:platováTřída",
+      "@id": "ofn-v:platovéPodmínky",
       "@type": "@id",
     },
     "pracoviště": {
-      "@id": "mff-v:pracoviště",
+      "@id": "ofn-v:pracoviště",
       "@type": "@id",
     },
     "nástup": "ofn-v:nástup",
