@@ -164,7 +164,7 @@ export function arrayToMultiLangValue(value) {
 }
 
 export function selectLabel(value, language) {
-  if (value[language] && isBlank(value[language].value)) {
+  if (value[language] && !isBlank(value[language].value)) {
     return value[language].value;
   }
   return value[DEFAULT_LANGUAGE].value;
