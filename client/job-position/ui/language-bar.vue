@@ -3,6 +3,7 @@
     <v-tabs>
       <v-tab
         v-for="(language, index) in languageList"
+        ref="tabs"
         :key="index"
         @click="onChange(language)"
       >
@@ -83,7 +84,12 @@
       "onAdd": function (language) {
         this.showDialog = false;
         this.$emit("add", language);
-        this.$emit("add", language);
+        this.$nextTick(() => {
+          // Select newly added language, as we can not force
+          // value for tabs otherwise.
+          const lastIndex = this.$refs["tabs"].length - 1;
+          this.$refs["tabs"][lastIndex].$el.click();
+        });
       }
     }
   }
