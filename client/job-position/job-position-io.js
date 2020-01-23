@@ -1,8 +1,9 @@
 import {isBlank, MISSING_VALUE} from "../app-service/validators";
 
 const FORMAL_EMAIL_LABEL = "Oficiální e-mail";
-
+const FORMAL_EMAIL_LABEL_EN = "Official e-mail";
 const INFORMAL_EMAIL_LABEL = "Neformální e-mail";
+const INFORMAL_EMAIL_LABEL_EN = "Informal e-mail";
 
 /**
  * Load only values provided inside the data.
@@ -62,13 +63,15 @@ export function JobPositionReader() {
     }
     contacts.forEach((item) => {
       const email = item["email"];
-      const type = item["druh"]["@value"];
-      if (type === FORMAL_EMAIL_LABEL) {
-        result["email"] = email;
-      }
-      if (type === INFORMAL_EMAIL_LABEL) {
-        result["emailInformal"] = email;
-      }
+      asArray(item["druh"]).forEach((item) => {
+        const type = item["@value"];
+        if (type === FORMAL_EMAIL_LABEL) {
+          result["email"] = email;
+        }
+        if (type === INFORMAL_EMAIL_LABEL) {
+          result["emailInformal"] = email;
+        }
+      });
     });
   }
 
@@ -99,7 +102,11 @@ export function JobPositionReader() {
     if (value === undefined || value === null) {
       return [];
     }
-    return value;
+    if (Array.isArray(value)) {
+      return value;
+    } else {
+      return [value];
+    }
   }
 
   function collectLanguages(json) {
@@ -138,7 +145,7 @@ export function JobPositionReader() {
   }
 
   function generateEmptyStrings(values, languages) {
-    values.forEach((entry) => {
+    asArray(values).forEach((entry) => {
       languages.forEach((language) => {
         if (entry[language]) {
           return;
@@ -171,6 +178,7 @@ export function JobPositionWriter() {
 
   function writePosition(position) {
     const result = {
+      "@type": ["Pozice"],
       "identifikátor": position["code"],
       "nástupDleDohody": position["fluidStart"],
       "kontakt": []
@@ -183,21 +191,27 @@ export function JobPositionWriter() {
     if (position["email"]) {
       result["kontakt"].push({
         "@type": ["Kontakt"],
-        "druh": {
+        "druh": [{
           "@language": "cs",
           "@value": FORMAL_EMAIL_LABEL,
-        },
-        "email": position["email"]
+        }, {
+          "@language": "en",
+          "@value": FORMAL_EMAIL_LABEL_EN,
+        }],
+        "email": position["email"],
       });
     }
     if (position["emailInformal"]) {
       result["kontakt"].push({
         "@type": ["Kontakt"],
-        "druh": {
+        "druh": [{
           "@language": "cs",
           "@value": INFORMAL_EMAIL_LABEL,
-        },
-        "email": position["emailInformal"]
+        }, {
+          "@language": "en",
+          "@value": INFORMAL_EMAIL_LABEL_EN,
+        }],
+        "email": position["emailInformal"],
       });
     }
     if (position["start"]) {
@@ -254,6 +268,7 @@ function createContext() {
     "mff-v": "https://data.mff.cuni.cz/slovník/výběrová-řízení/",
     "time": "http://www.w3.org/2006/time#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Pozice" : "ofn-v:Pozice",
     "identifikátor": "ofn-v:identifikátor",
     "nástupDleDohody": "ofn-v:nástupDleDohody",
     "kontakt": "ofn-v:kontakt",
