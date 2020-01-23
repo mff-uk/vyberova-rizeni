@@ -66,40 +66,70 @@
         :items="organizationCodelist"
         label="Pracoviště"
         item-value="@id"
-        :item-text="selectLabelWorking"
-      />
+      >
+        <template v-slot:selection="data">
+          {{ selectLabel(data.item) }}
+        </template>
+        <template v-slot:item="data">
+          {{ selectLabel(data.item) }}
+        </template>
+      </v-autocomplete>
       <v-autocomplete
         id="role"
         v-model="value.role"
         :items="roleCodelist"
         label="Role"
         item-value="@id"
-        :item-text="selectLabel"
-      />
+      >
+        <template v-slot:selection="data">
+          {{ selectLabel(data.item) }}
+        </template>
+        <template v-slot:item="data">
+          {{ selectLabel(data.item) }}
+        </template>
+      </v-autocomplete>
       <v-autocomplete
         id="wageClass"
         v-model="value.wageClass"
         :items="wageClassCodelist"
         label="Platová třída"
         item-value="@id"
-        :item-text="selectLabel"
-      />
+      >
+        <template v-slot:selection="data">
+          {{ selectLabel(data.item) }}
+        </template>
+        <template v-slot:item="data">
+          {{ selectLabel(data.item) }}
+        </template>
+      </v-autocomplete>
       <v-autocomplete
         id="workingHours"
         v-model="value.workingHours"
         :items="timeCodelist"
         label="Úvazek"
         item-value="@id"
-        :item-text="selectLabel"
-      />
+      >
+        <template v-slot:selection="data">
+          {{ selectLabel(data.item) }}
+        </template>
+        <template v-slot:item="data">
+          {{ selectLabel(data.item) }}
+        </template>
+      </v-autocomplete>
       <v-autocomplete
         id="department"
         v-model="value.department"
         :items="departmentCodelist"
         label="Obor"
         item-value="@id"
-        :item-text="selectLabel"
-      />
+      >
+        <template v-slot:selection="data">
+          {{ selectLabel(data.item) }}
+        </template>
+        <template v-slot:item="data">
+          {{ selectLabel(data.item) }}
+        </template>
+      </v-autocomplete>
       <multiline-chips
         id="researchField"
         v-model="value.researchField"
@@ -203,11 +233,6 @@
         "callback": null
       },
     }),
-    "watch": {
-      "language": function() {
-        console.log("watch language");
-      }
-    } ,
     "computed": {
       "wageClassCodelist": function () {
         const name = CODELIST_STORE_NAME + "/" + GET_CODELIST;
@@ -228,7 +253,7 @@
       "timeCodelist": function () {
         const name = CODELIST_STORE_NAME + "/" + GET_CODELIST;
         return this.$store.getters[name](TIME);
-      }
+      },
     },
     "props": {
       "value": {
@@ -300,14 +325,6 @@
           UPDATE_DESCRIPTION,
           createEmptyMultilanguage(this.value.languages));
       },
-      "selectLabelWorking": function(value) {
-        const currentValue = value[this.language];
-        if (currentValue) {
-          return currentValue;
-        } else {
-          return value["cs"];
-        }
-      },
       "selectLabel": function(value) {
         const currentValue = value[this.language];
         if (currentValue) {
@@ -315,7 +332,7 @@
         } else {
           return value["cs"];
         }
-      }
+      },
     }
   }
 
