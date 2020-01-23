@@ -1,15 +1,26 @@
 <template>
   <div>
-    <b>code:</b> {{ value.code }} <br>
-    <b>email:</b> {{ value.email }} <br>
-    <b>hiring:</b> {{ value.applicationEnd }} <br>
-    <b>start:</b> {{ value.start }} <span v-if="value.fluidStart">nebo dle dohody</span> <br>
-    <b>working place:</b> {{ workingPlaceLabel }} <br>
-    <b>role:</b> {{ roleLabel }} <br>
-    <b>wage class:</b> {{ wageClassLabel }} <br>
-    <b>working hours:</b> {{ workingHoursLabel }} <br>
-    <b>department:</b> {{ departmentLabel }} <br>
-    <b>research field:</b>
+    <h1>
+      Děkan Matematicko-fyzikální fakulty Univerzity Karlovy vypisuje
+      výběrové řízení na obsazení následující akademické pozice na
+      {{ departmentLabel }} s&nbsp;termínem podání přihlášek
+      {{ value.applicationEnd }}
+    </h1>
+    <p>
+      <strong> {{ roleLabel }} </strong> <br>
+      <strong>
+        kód pracovního místa
+        <a :href="'mailto:' + value.email + '?subject=' + value.code">
+          {{ value.code }}
+        </a>
+      </strong>
+    </p>
+    <p>Pracoviště: {{ workingPlaceLabel }}</p>
+    <p>Platová třída: {{ wageClassLabel }}</p>
+    <p>Výše úvazku: {{ workingHoursLabel }}</p>
+    <p v-show="value.researchField.length > 0">
+      Uchazeč bude pracovat v oboru/oborech:
+    </p>
     <ul>
       <li
         v-for="(item, index) in value.researchField"
@@ -18,7 +29,10 @@
         {{ labelSelector(item) }}
       </li>
     </ul>
-    <b>expertise:</b>
+    <p v-show="value.expertise.length > 0">
+      U uchazečů se požaduje odbornost/expertíza v&nbsp;nejméně jedné
+      z&nbsp;následujících oblastí:
+    </p>
     <ul>
       <li
         v-for="(item, index) in value.expertise"
@@ -27,7 +41,9 @@
         {{ labelSelector(item) }}
       </li>
     </ul>
-    <b>qualification:</b>
+    <p v-show="value.qualification.length > 0">
+      Uchazeči musí splnit následující kvalifikační předpoklady:
+    </p>
     <ul>
       <li
         v-for="(item, index) in value.qualification"
@@ -36,8 +52,14 @@
         {{ labelSelector(item) }}
       </li>
     </ul>
-    <b>informal email:</b> {{ value.emailInformal }} <br>
-    <b>document:</b>
+    <p>{{ labelSelector(value.description) }}</p>
+    <p>
+      Neformální dotazy adresujte na
+      <a :href="'mailto:' + value.emailInformal">{{ value.emailInformal }}</a>.
+    </p>
+    <p v-show="value.documents.length > 0">
+      Doklady požadované k&nbsp;přihlášce jsou:
+    </p>
     <ul>
       <li
         v-for="(item, index) in value.documents"
@@ -46,7 +68,24 @@
         {{ labelSelector(item) }}
       </li>
     </ul>
-    <b>description:</b> {{ labelSelector(value.description) }} <br>
+    <p>
+      Kromě zaslání přihlášky a&nbsp;požadovaných dokladů na e-mail
+      <a :href="'mailto:' + value.email + '?subject=' + value.code">
+        {{ value.email }}
+      </a>
+      uchazeči zajistí, aby byly na tutéž e-mailovou adresu zaslány dva
+      doporučující dopisy. I v&nbsp;tomto případě musí být v&nbsp;předmětu
+      e-mailové zprávy uveden kód pracovního místa.
+    </p>
+    <p>
+      <strong>
+        Termín pro podávání přihlášek: {{ value.applicationEnd }}
+      </strong>
+    </p>
+    <p>
+      Termín nástupu: {{ value.start }}
+      <span v-if="value.fluidStart">nebo dle dohody</span>
+    </p>
   </div>
 </template>
 
@@ -111,7 +150,7 @@
   }
 
   function selectFromCodeList(codelist, language, value) {
-    for(const key in codelist) {
+    for (const key in codelist) {
       if (!codelist.hasOwnProperty(key)) {
         continue;
       }
