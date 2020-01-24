@@ -240,7 +240,7 @@ export function JobPositionWriter() {
       .map((values) => ({"@type": ["Kvalifikace"], "název": values,}));
     result["dokumenty"] = position["documents"]
       .map((item) => multilanguageToJson(item))
-      .map((values) => ({"@type": ["OborVýzkumu"], "název": values,}));
+      .map((values) => ({"@type": ["Dokumenty"], "název": values,}));
     return result;
   }
 
@@ -305,6 +305,8 @@ function createContext() {
     "název": "ofn-z:název",
     "oborVýzkumu": "mff-v:oborVýzkumu",
     "OborVýzkumu": "mff-v:OborVýzkumu",
+    "dokumenty": "mff-v:dokumenty",
+    "Dokumenty": "mff-v:Dokumenty",
     "expertíza": "mff-v:expertíza",
     "Expertíza": "mff-v:Expertíza",
     "kvalifikace": "mff-v:kvalifikace",
