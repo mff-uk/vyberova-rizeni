@@ -21,7 +21,7 @@
     <p v-show="value.researchField.length > 0">
       Uchazeč bude pracovat v oboru/oborech:
     </p>
-    <ul>
+    <ul v-show="value.researchField.length > 0">
       <li
         v-for="(item, index) in value.researchField"
         :key="index"
@@ -33,7 +33,7 @@
       U uchazečů se požaduje odbornost/expertíza v&nbsp;nejméně jedné
       z&nbsp;následujících oblastí:
     </p>
-    <ul>
+    <ul v-show="value.expertise.length > 0">
       <li
         v-for="(item, index) in value.expertise"
         :key="index"
@@ -44,7 +44,7 @@
     <p v-show="value.qualification.length > 0">
       Uchazeči musí splnit následující kvalifikační předpoklady:
     </p>
-    <ul>
+    <ul v-show="value.qualification.length > 0">
       <li
         v-for="(item, index) in value.qualification"
         :key="index"
@@ -60,7 +60,7 @@
     <p v-show="value.documents.length > 0">
       Doklady požadované k&nbsp;přihlášce jsou:
     </p>
-    <ul>
+    <ul v-show="value.documents.length > 0">
       <li
         v-for="(item, index) in value.documents"
         :key="index"
@@ -170,5 +170,8 @@
 </script>
 
 <style scoped>
-
+  ul {
+    margin-bottom: 16px;
+    margin-top: -16px;
+  }
 </style>
