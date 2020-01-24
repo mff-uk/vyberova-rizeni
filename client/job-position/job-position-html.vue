@@ -3,7 +3,7 @@
     <h1>
       Děkan Matematicko-fyzikální fakulty Univerzity Karlovy vypisuje
       výběrové řízení na obsazení následující akademické pozice na
-      {{ departmentLabel }} s&nbsp;termínem podání přihlášek
+      {{ sectionLabel }} s&nbsp;termínem podání přihlášek
       {{ value.applicationEnd }}
     </h1>
     <p>
@@ -104,6 +104,15 @@
 
   import {selectLabel} from "./job-position-api";
 
+  const OBOR_TO_SEKCE = {
+    "https://data.mff.cuni.cz/zdroj/číselník/obor/matematika":
+      "matematické sekci",
+    "https://data.mff.cuni.cz/zdroj/číselník/obor/fyzika":
+      "fyzikální sekci",
+    "https://data.mff.cuni.cz/zdroj/číselník/obor/informatika":
+      "informatické sekci"
+  };
+
   export default {
     "name": "job-position-html",
     "props": {
@@ -129,11 +138,8 @@
         return selectFromCodeList(
           codelist, this.language, this.value.role);
       },
-      "departmentLabel": function () {
-        const name = CODELIST_STORE_NAME + "/" + GET_CODELIST;
-        const codelist = this.$store.getters[name](DEPARTMENT);
-        return selectFromCodeList(
-          codelist, this.language, this.value.department);
+      "sectionLabel": function () {
+        return OBOR_TO_SEKCE[this.value.department];
       },
       "workingHoursLabel": function () {
         const name = CODELIST_STORE_NAME + "/" + GET_CODELIST;
