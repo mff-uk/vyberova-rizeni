@@ -24,7 +24,58 @@ export function createJobPosition(code) {
     "researchField": [],
     "expertise": [],
     "qualification": [],
-    "documents": [],
+    "documents": [
+      {
+        "cs": {
+          "value": "strukturovaný životopis",
+          "errors": [],
+        },
+        "en": {
+          "value": "a curriculum vitae",
+          "errors": [],
+        },
+      },
+      {
+        "cs": {
+          "value": "doklady o vzdělání",
+          "errors": [],
+        },
+        "en": {
+          "value": "proofs of education and awarding of academic titles",
+          "errors": [],
+        },
+      },
+      {
+        "cs": {
+          "value": "seznam publikační aktivity",
+          "errors": [],
+        },
+        "en": {
+          "value": "a list of publications",
+          "errors": [],
+        },
+      },
+      {
+        "cs": {
+          "value": "přehled citační odezvy (nejlépe podle Web of Science, MathSci či jiných uznávaných databází)",
+          "errors": [],
+        },
+        "en": {
+          "value": "a list of citations (preferably by WoS, MathSciNet or other relevant databases)",
+          "errors": [],
+        },
+      },
+      {
+        "cs": {
+          "value": "popis dosavadní pedagogické praxe",
+          "errors": [],
+        },
+        "en": {
+          "value": "a description of teaching experience",
+          "errors": [],
+        },
+      }
+    ],
     "description": createEmptyMultilanguage(["cs", "en"]),
     // List of all languages.
     "languages": ["cs", "en"]
