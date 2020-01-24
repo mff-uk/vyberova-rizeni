@@ -4,7 +4,7 @@
       Děkan Matematicko-fyzikální fakulty Univerzity Karlovy vypisuje
       výběrové řízení na obsazení následující akademické pozice na
       {{ sectionLabel }} s&nbsp;termínem podání přihlášek
-      {{ value.applicationEnd }}
+      {{ formatDate(value.applicationEnd) }}
     </h1>
     <p>
       <strong> {{ roleLabel }} </strong> <br>
@@ -79,11 +79,11 @@
     </p>
     <p>
       <strong>
-        Termín pro podávání přihlášek: {{ value.applicationEnd }}
+        Termín pro podávání přihlášek: {{ formatDate(value.applicationEnd) }}
       </strong>
     </p>
     <p>
-      Termín nástupu: {{ value.start }}
+      Termín nástupu: {{ formatDate(value.start) }}
       <span v-if="value.fluidStart">nebo dle dohody</span>
     </p>
   </div>
@@ -152,6 +152,22 @@
       "labelSelector": function (item) {
         return selectLabel(item, this.language);
       },
+      "formatDate": function (value) {
+        if (!value) {
+          return "";
+        }
+        const date = new Date(value);
+        let day = date.getDate();
+        if (day < 10) {
+          day = "0" + day;
+        }
+        let month = date.getMonth() + 1; // It starts from zero.
+        if (month < 10) {
+          month = "0" + month;
+        }
+        const year = date.getFullYear();
+        return day + "." + month + "." + year;
+      },
     }
   }
 
@@ -172,7 +188,6 @@
     }
     return value;
   }
-
 </script>
 
 <style scoped>
