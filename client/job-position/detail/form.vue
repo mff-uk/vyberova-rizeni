@@ -66,70 +66,40 @@
         :items="organizationCodelist"
         label="Pracoviště"
         item-value="@id"
-      >
-        <template v-slot:selection="data">
-          {{ selectLabel(data.item) }}
-        </template>
-        <template v-slot:item="data">
-          {{ selectLabel(data.item) }}
-        </template>
-      </v-autocomplete>
+        item-text="text"
+      />
       <v-autocomplete
         id="role"
         v-model="value.role"
         :items="roleCodelist"
         label="Role"
         item-value="@id"
-      >
-        <template v-slot:selection="data">
-          {{ selectLabel(data.item) }}
-        </template>
-        <template v-slot:item="data">
-          {{ selectLabel(data.item) }}
-        </template>
-      </v-autocomplete>
+        item-text="text"
+      />
       <v-autocomplete
         id="wageClass"
         v-model="value.wageClass"
         :items="wageClassCodelist"
         label="Platová třída"
         item-value="@id"
-      >
-        <template v-slot:selection="data">
-          {{ selectLabel(data.item) }}
-        </template>
-        <template v-slot:item="data">
-          {{ selectLabel(data.item) }}
-        </template>
-      </v-autocomplete>
+        item-text="text"
+      />
       <v-autocomplete
         id="workingHours"
         v-model="value.workingHours"
         :items="timeCodelist"
         label="Úvazek"
         item-value="@id"
-      >
-        <template v-slot:selection="data">
-          {{ selectLabel(data.item) }}
-        </template>
-        <template v-slot:item="data">
-          {{ selectLabel(data.item) }}
-        </template>
-      </v-autocomplete>
+        item-text="text"
+      />
       <v-autocomplete
         id="department"
         v-model="value.department"
         :items="departmentCodelist"
         label="Obor"
         item-value="@id"
-      >
-        <template v-slot:selection="data">
-          {{ selectLabel(data.item) }}
-        </template>
-        <template v-slot:item="data">
-          {{ selectLabel(data.item) }}
-        </template>
-      </v-autocomplete>
+        item-text="text"
+      />
       <multiline-chips
         id="researchField"
         v-model="value.researchField"
@@ -235,24 +205,19 @@
     }),
     "computed": {
       "wageClassCodelist": function () {
-        const name = CODELIST_STORE_NAME + "/" + GET_CODELIST;
-        return this.$store.getters[name](WAGE_CLASS);
+        return this.prepareCodeList(WAGE_CLASS);
       },
       "organizationCodelist": function () {
-        const name = CODELIST_STORE_NAME + "/" + GET_CODELIST;
-        return this.$store.getters[name](ORGANIZATION_STRUCTURE);
+        return this.prepareCodeList(ORGANIZATION_STRUCTURE);
       },
       "roleCodelist": function () {
-        const name = CODELIST_STORE_NAME + "/" + GET_CODELIST;
-        return this.$store.getters[name](ROLE);
+        return this.prepareCodeList(ROLE);
       },
       "departmentCodelist": function () {
-        const name = CODELIST_STORE_NAME + "/" + GET_CODELIST;
-        return this.$store.getters[name](DEPARTMENT);
+        return this.prepareCodeList(DEPARTMENT);
       },
       "timeCodelist": function () {
-        const name = CODELIST_STORE_NAME + "/" + GET_CODELIST;
-        return this.$store.getters[name](TIME);
+        return this.prepareCodeList(TIME);
       },
     },
     "props": {
@@ -325,7 +290,26 @@
           UPDATE_DESCRIPTION,
           createEmptyMultilanguage(this.value.languages));
       },
-      "selectLabel": function(value) {
+      "prepareCodeList": function (name) {
+        /*
+        The v-autocomplete can use function parameter in text-item,
+        to pick the text that is visible and used for search.
+        However, the component fail to react on language change,
+        if the :text-item="selectLabel".
+        This can not be fixed by using custom template as then
+        the search does not work. As a workaround
+        we construct a new values list as a language is changed.
+        As the codelists are small this should not have a big performance
+        impact.
+         */
+        const store = CODELIST_STORE_NAME + "/" + GET_CODELIST;
+        const codelist = this.$store.getters[store](name);
+        return codelist.map((item) => ({
+          "@id": item["@id"],
+          "text": this.selectLabel(item)
+        }));
+      },
+      "selectLabel": function (value) {
         const currentValue = value[this.language];
         if (currentValue) {
           return currentValue;
