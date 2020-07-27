@@ -18,15 +18,21 @@
     <p>Pracoviště: {{ workingPlaceLabel }}</p>
     <p>Platová třída: {{ wageClassLabel }}</p>
     <p>Výše úvazku: {{ workingHoursLabel }}</p>
-    <p v-show="value.researchField.length > 0">
+    <p v-show="researchFieldLength > 0">
       Uchazeč bude pracovat v oboru/oborech:
     </p>
-    <ul v-show="value.researchField.length > 0">
+    <ul v-show="researchFieldLength > 0">
       <li
-        v-for="(item, index) in value.researchField"
+        v-for="(item, index) in value.researchFieldIsvav"
         :key="index"
       >
-        {{ labelSelector(item) }}
+        {{ researchFieldIsvavLabel(item) }}
+      </li>
+      <li
+        v-for="(item, index) in value.researchFieldFord"
+        :key="index"
+      >
+        {{ researchFieldFordLabel(item) }}
       </li>
     </ul>
     <p v-show="value.expertise.length > 0">
@@ -98,8 +104,9 @@
     WAGE_CLASS,
     ORGANIZATION_STRUCTURE,
     ROLE,
-    DEPARTMENT,
-    TIME
+    TIME,
+    ISVAV,
+    FORD
   } from "./codelist-names"
 
   import {selectLabel} from "./job-position-api";
@@ -147,10 +154,24 @@
         return selectFromCodeList(
           codelist, this.language, this.value.workingHours);
       },
+      "researchFieldLength": function () {
+        return this.value.researchFieldIsvav.length +
+          this.value.researchFieldFord.length;
+      }
     },
     "methods": {
       "labelSelector": function (item) {
         return selectLabel(item, this.language);
+      },
+      "researchFieldIsvavLabel": function(item) {
+        const name = CODELIST_STORE_NAME + "/" + GET_CODELIST;
+        const codelist = this.$store.getters[name](ISVAV);
+        return selectFromCodeList(codelist, this.language, item);
+      },
+      "researchFieldFordLabel": function(item) {
+        const name = CODELIST_STORE_NAME + "/" + GET_CODELIST;
+        const codelist = this.$store.getters[name](FORD);
+        return selectFromCodeList(codelist, this.language, item);
       },
       "formatDate": function (value) {
         if (!value) {

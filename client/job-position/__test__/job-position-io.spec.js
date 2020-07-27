@@ -1,5 +1,4 @@
 import {JobPositionReader, JobPositionWriter} from "./../job-position-io";
-import {MISSING_VALUE} from "../../app-service/validators";
 
 describe("JobPositionIO", () => {
 
@@ -16,37 +15,14 @@ describe("JobPositionIO", () => {
       "workingHours": "working-1/2",
       "department": "my-department",
       "emailInformal": "informail email",
-      // Following properties are multilingual.
-      "researchField": [
-        {
-          "cs": {
-            "value": "research-field-cs",
-            "errors": [],
-          },
-          "en": {
-            "value": "research-field-en",
-            "errors": [],
-          },
-          "es": {
-            "value": "",
-            "errors": [MISSING_VALUE],
-          }
-        },
-        {
-          "cs": {
-            "value": "research-field-cs-II",
-            "errors": [],
-          },
-          "en": {
-            "value": "",
-            "errors": [MISSING_VALUE],
-          },
-          "es": {
-            "value": "research-field-es-II",
-            "errors": [],
-          },
-        }
+      "researchFieldIsvav": [
+        "https://data.mvcr.gov.cz/zdroj/číselníky/klasifikace-výzkumných-oborů/položky/A",
+        "https://data.mvcr.gov.cz/zdroj/číselníky/klasifikace-výzkumných-oborů/položky/B"
       ],
+      "researchFieldFord": [
+        "https://data.mvcr.gov.cz/zdroj/číselníky/ford/položky/10000"
+      ],
+      // Following properties are multilingual.
       "expertise": [
         {
           "cs": {
@@ -132,8 +108,8 @@ describe("JobPositionIO", () => {
       "workingHours": "working-1/2",
       "department": "my-department",
       "emailInformal": "informail email",
-      // Following properties are multilingual.
       "researchField": [],
+      // Following properties are multilingual.
       "expertise": [],
       "qualification": [],
       "documents": [],

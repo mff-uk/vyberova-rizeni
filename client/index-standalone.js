@@ -17,6 +17,8 @@ import {
   ORGANIZATION_STRUCTURE,
   DEPARTMENT,
   TIME,
+  ISVAV,
+  FORD
 } from "./job-position/codelist-names";
 
 import wageClass from "../data/public/mzdové-třídy.json";
@@ -24,6 +26,8 @@ import role from "../data/public/role.json";
 import organizationStructure from "../data/public/organizační-struktura.json";
 import department from "../data/public/obor.json";
 import time from "../data/public/úvazek.json";
+import isvav from "../data/public/klasifikace-oborů-isvav.json";
+import ford from "../data/public/klasifikace-oborů-ford.json";
 
 /**
  * Add codelists to the client site.
@@ -34,6 +38,8 @@ codelistCache[ROLE] = role;
 codelistCache[ORGANIZATION_STRUCTURE] = organizationStructure;
 codelistCache[DEPARTMENT] = department;
 codelistCache[TIME] = time;
+codelistCache[ISVAV] = isvav;
+codelistCache[FORD] = ford;
 
 // Now start rest of the application, we can not import index.js.
 // as it would be executed before this code above.

@@ -14,14 +14,16 @@ export function createJobPosition(code) {
     "applicationEnd": null,
     "start": null,
     "fluidStart": true,
+    "emailInformal": null,
+    // Codelist based values.
     "workingPlace": null,
     "role": null,
     "wageClass": null,
     "workingHours": DEFAULT_TIME,
     "department": null,
-    "emailInformal": null,
+    "researchFieldFord": [],
+    "researchFieldIsvav": [],
     // Following properties are multilingual.
-    "researchField": [],
     "expertise": [],
     "qualification": [],
     "documents": [
@@ -92,9 +94,6 @@ export function addLanguage(jobPosition, language) {
   }
   return {
     ...jobPosition,
-    "researchField":
-      jobPosition.researchField.map(
-        (item) => addLanguageToMultilanguage(item, language)),
     "expertise":
       jobPosition.expertise.map(
         (item) => addLanguageToMultilanguage(item, language)),
@@ -133,9 +132,6 @@ export function deleteLanguage(jobPosition, language) {
   }
   return {
     ...jobPosition,
-    "researchField":
-      jobPosition.researchField.map(
-        (item) => deleteLanguageToMultilanguage(item, language)),
     "expertise":
       jobPosition.expertise.map(
         (item) => deleteLanguageToMultilanguage(item, language)),

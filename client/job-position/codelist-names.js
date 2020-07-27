@@ -7,3 +7,7 @@ export const ROLE = "role";
 export const DEPARTMENT = "obor";
 
 export const TIME = "úvazek";
+
+export const ISVAV = "klasifikace-oborů-isvav";
+
+export const FORD = "klasifikace-oborů-ford";

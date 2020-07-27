@@ -70,6 +70,8 @@
     ORGANIZATION_STRUCTURE,
     ROLE,
     WAGE_CLASS,
+    ISVAV,
+    FORD,
   } from "../codelist-names";
   import {
     LOAD_CODELIST,
@@ -100,6 +102,8 @@
       this.$store.dispatch(LOAD_CODELIST, ROLE);
       this.$store.dispatch(LOAD_CODELIST, DEPARTMENT);
       this.$store.dispatch(LOAD_CODELIST, TIME);
+      this.$store.dispatch(LOAD_CODELIST, ISVAV);
+      this.$store.dispatch(LOAD_CODELIST, FORD);
     },
     "methods": {
       "onAddLanguage": function (language) {

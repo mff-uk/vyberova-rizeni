@@ -100,15 +100,17 @@
         item-value="@id"
         item-text="text"
       />
-      <multiline-chips
-        id="researchField"
-        v-model="value.researchField"
-        label="Obor výzkumu"
-        user-value="researchField"
-        :label-selector="labelSelector"
-        @create="onCreateValue"
-        @edit="onEditValue"
-        @delete="onDeleteValue"
+      <multivalue-chips-selector
+        id=" researchFieldIsvav"
+        v-model="value.researchFieldIsvav"
+        label="Obor výzkumu (ISVav)"
+        :items="researchFieldIsvavCodelist"
+      />
+      <multivalue-chips-selector
+        id=" researchFieldFord"
+        v-model="value.researchFieldFord"
+        label="Obor výzkumu (Ford)"
+        :items="researchFieldFordCodelist"
       />
       <multiline-chips
         id="expertise"
@@ -164,6 +166,7 @@
   import MultilineChips from "./ui/multiline-chips";
   import MultilangTextField from "./ui/multilang-text-field";
   import EditDialog from "./ui/edit-multilang-dialog";
+  import MultiValueSelector from "./ui/multivalue-chips-selector";
   import {
     ADD_VALUE, EDIT_VALUE, DELETE_VALUE, UPDATE_DESCRIPTION,
   } from "./../job-position-store";
@@ -183,6 +186,8 @@
     ROLE,
     DEPARTMENT,
     TIME,
+    ISVAV,
+    FORD
   } from "../codelist-names"
 
   export default {
@@ -191,7 +196,8 @@
       "date-picker": DatePicker,
       "multiline-chips": MultilineChips,
       "multilang-text-field": MultilangTextField,
-      "edit-multilang-dialog": EditDialog
+      "edit-multilang-dialog": EditDialog,
+      "multivalue-chips-selector": MultiValueSelector,
     },
     "data": () => ({
       "editDialog": {
@@ -218,6 +224,12 @@
       },
       "timeCodelist": function () {
         return this.prepareCodeList(TIME);
+      },
+      "researchFieldIsvavCodelist": function () {
+        return this.prepareCodeList(ISVAV);
+      },
+      "researchFieldFordCodelist": function () {
+        return this.prepareCodeList(FORD);
       },
     },
     "props": {
@@ -313,8 +325,10 @@
         const currentValue = value[this.language];
         if (currentValue) {
           return currentValue;
-        } else {
+        } else if (value["cs"]) {
           return value["cs"];
+        } else {
+          return value["en"];
         }
       },
     }

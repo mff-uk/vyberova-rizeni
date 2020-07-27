@@ -27,19 +27,19 @@ export function JobPositionReader() {
     setIfNotEmpty(result, "workingHours", position["typVztahu"]);
     setIfNotEmpty(result, "department", position["obor"]);
     loadContacts(result, position);
+    setIfNotEmpty(result, "researchFieldIsvav", position["obor_isvav"]);
+    setIfNotEmpty(result, "researchFieldFord", position["obor_frascati"]);
 
     const description = jsonToMultilanguage(position["volnýText"]);
     if (description !== null) {
       result["description"] = description;
     }
 
-    setMultilanguage(result, "researchField", position["oborVýzkumu"]);
     setMultilanguage(result, "expertise", position["expertíza"]);
     setMultilanguage(result, "qualification", position["kvalifikace"]);
     setMultilanguage(result, "documents", position["dokumenty"]);
     result["languages"] = collectLanguages(result);
 
-    generateEmptyStrings(result["researchField"], result["languages"]);
     generateEmptyStrings(result["qualification"], result["languages"]);
     generateEmptyStrings(result["qualification"], result["languages"]);
     generateEmptyStrings(result["documents"], result["languages"]);
@@ -121,11 +121,6 @@ export function JobPositionReader() {
     let languages = [
       ...collectLanguagesFromMultilanguage(json["description"]),
     ];
-    if (json["researchField"]) {
-      json["researchField"].forEach((item) => {
-        languages = [...languages, ...collectLanguagesFromMultilanguage(item)];
-      });
-    }
     if (json["expertise"]) {
       json["expertise"].forEach((item) => {
         languages = [...languages, ...collectLanguagesFromMultilanguage(item)];
@@ -229,9 +224,10 @@ export function JobPositionWriter() {
     if (!isBlank(position["description"])) {
       result["volnýText"] = multilanguageToJson(position["description"]);
     }
-    result["oborVýzkumu"] = position["researchField"]
-      .map((item) => multilanguageToJson(item))
-      .map((values) => ({"@type": ["OborVýzkumu"], "název": values,}));
+
+    setIfNotEmpty(result, "obor_isvav", position["researchFieldIsvav"]);
+    setIfNotEmpty(result, "obor_frascati", position["researchFieldFord"]);
+
     result["expertíza"] = position["expertise"]
       .map((item) => multilanguageToJson(item))
       .map((values) => ({"@type": ["Expertíza"], "název": values,}));
