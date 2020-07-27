@@ -96,7 +96,7 @@
         id="department"
         v-model="value.department"
         :items="departmentCodelist"
-        label="Obor"
+        label="Sekce"
         item-value="@id"
         item-text="text"
       />
