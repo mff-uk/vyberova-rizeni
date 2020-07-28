@@ -51,14 +51,10 @@
 </template>
 
 <script>
-  import {mapGetters} from "vuex";
   import {
-    STORE_NAME,
+    POSITION_STORE_NAME,
     GET_JOB_POSITION,
-    SELECT_JOB_POSITIONS,
-    DELETE_LANGUAGE,
-    ADD_LANGUAGE,
-    SAVE_SELECTED,
+    CHANGE_POSITION, SET_CHANGE_ON_EDIT,
   } from "../job-position-store";
   import JobPositionHtml from "../job-position-html";
   import JobPositionForm from "./form";
@@ -77,6 +73,7 @@
     LOAD_CODELIST,
   } from "../../codelist";
   import FormButtons from "./form-buttons";
+  import {addLanguage, deleteLanguage} from "../job-position-api";
 
   export default {
     "name": "job-position-detail-view",
@@ -89,14 +86,17 @@
     "data": () => ({
       "formLanguage": "cs",
       "htmlLanguage": "cs",
+      /**
+       * Reference to the original position code, as the code
+       * can be changed by the user.
+       */
+      "refCode": undefined,
+      /**
+       * Copy of a position object to edit.
+       */
+      "position": undefined,
     }),
-    "computed": {
-      ...mapGetters(STORE_NAME, {
-        "position": GET_JOB_POSITION
-      }),
-    },
     "mounted": function () {
-      this.$store.dispatch(SELECT_JOB_POSITIONS, this.$route.params.code);
       this.$store.dispatch(LOAD_CODELIST, WAGE_CLASS);
       this.$store.dispatch(LOAD_CODELIST, ORGANIZATION_STRUCTURE);
       this.$store.dispatch(LOAD_CODELIST, ROLE);
@@ -104,20 +104,29 @@
       this.$store.dispatch(LOAD_CODELIST, TIME);
       this.$store.dispatch(LOAD_CODELIST, ISVAV);
       this.$store.dispatch(LOAD_CODELIST, FORD);
+      // Get a copy of the object to edit.
+      const getter = this.$store.getters[
+      POSITION_STORE_NAME + "/" + GET_JOB_POSITION];
+      this.refCode = this.$route.params.code;
+      this.position = {...getter(this.refCode)};
+      // There is no change at this point.
+      this.$store.dispatch(SET_CHANGE_ON_EDIT, false);
     },
     "methods": {
       "onAddLanguage": function (language) {
-        this.$store.dispatch(ADD_LANGUAGE, language);
+        addLanguage(this.position, language);
       },
       "onDeleteLanguage": function (language) {
-        this.$store.dispatch(DELETE_LANGUAGE, language);
+        deleteLanguage(this.position, language);
       },
       "onSaveChanges": function () {
-        this.$store.dispatch(SAVE_SELECTED).then(
-          () => redirectToJobList(this.$router)
-        );
+        this.$store.dispatch(CHANGE_POSITION, {
+          "position": this.position,
+          "refCode": this.refCode,
+        }).then(() => redirectToJobList(this.$router));
       },
       "onDiscardChanges": function () {
+        this.$store.dispatch(SET_CHANGE_ON_EDIT, false);
         redirectToJobList(this.$router);
       }
     },

@@ -1,13 +1,14 @@
 <template>
   <v-app-bar
     style="height: 4em"
-    color="blue"
+    :color="color"
     dark
     app
   >
     <v-toolbar-title class="title">
       Výběrová řízení
     </v-toolbar-title>
+    {{ hasChanged ? "Existují nestažené změny." : "" }}
     <v-btn
       v-for="item in navigation"
       :key="item['route-name']"
@@ -21,14 +22,27 @@
 
 <script>
   import {getRegistered} from "./register";
+  import {
+    POSITION_STORE_NAME,
+    GET_HAS_CHANGED,
+  } from "../job-position/job-position-store";
 
   export default {
     "name": "app-header",
-    "data": () => ({
-    }),
     "computed": {
-      "navigation": function() {
+      "hasChanged": function () {
+        const name = POSITION_STORE_NAME + "/" + GET_HAS_CHANGED;
+        return this.$store.getters[name];
+      },
+      "navigation": function () {
         return getRegistered().filter((module) => isNavModule(module));
+      },
+      "color": function()  {
+        if (this.hasChanged) {
+          return "#E67E22";
+        } else {
+          return "#2874A6";
+        }
       }
     }
   }

@@ -6,12 +6,12 @@ const STATUS_READY = "STATUS_READY";
 
 const STATUS_FAILED = "STATUS_FAILED";
 
-export const STORE_NAME = "codelist";
+export const CODELIST_STORE_NAME = "codelist";
 
 export const GET_CODELIST = "GET_CODELIST";
 
 const LOAD_CODELIST_ACTION = "LOAD_CODELIST_ACTION";
-export const LOAD_CODELIST = STORE_NAME + "/" + LOAD_CODELIST_ACTION;
+export const LOAD_CODELIST = CODELIST_STORE_NAME + "/" + LOAD_CODELIST_ACTION;
 
 export function createStore() {
   return {

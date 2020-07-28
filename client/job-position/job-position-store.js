@@ -1,82 +1,65 @@
 import {
   createJobPosition,
-  addLanguage,
-  deleteLanguage
+  isPositionEqual,
 } from "./job-position-api";
 
-export const STORE_NAME = "job-position";
+export const POSITION_STORE_NAME = "job-position";
 
 export const GET_JOB_POSITION = "GET_JOB_POSITION";
 
-export const GET_JOB_POSITIONS = "GET_JOB_POSITIONS";
+export const GET_ALL_JOB_POSITIONS = "GET_ALL_JOB_POSITIONS";
 
 export const GET_ALL_LANGUAGES = "GET_ALL_LANGUAGES";
 
+export const GET_HAS_CHANGED = "GET_HAS_CHANGED";
+
 const CREATE_ACTION = "CREATE_JOB_POSITION";
-export const CREATE_JOB_POSITION = STORE_NAME + "/" + CREATE_ACTION;
+export const CREATE_JOB_POSITION = POSITION_STORE_NAME + "/" + CREATE_ACTION;
 
 const LOAD_ACTION = "LOAD_JOB_POSITIONS";
-export const LOAD_JOB_POSITIONS = STORE_NAME + "/" + LOAD_ACTION;
+export const LOAD_JOB_POSITIONS = POSITION_STORE_NAME + "/" + LOAD_ACTION;
 
 const DELETE_ACTION = "DELETE_ACTION";
-export const DELETE_JOB_POSITION = STORE_NAME + "/" + DELETE_ACTION;
+export const DELETE_JOB_POSITION = POSITION_STORE_NAME + "/" + DELETE_ACTION;
 
-const SELECT_ACTION = "SELECT_JOB_POSITIONS";
-export const SELECT_JOB_POSITIONS = STORE_NAME + "/" + SELECT_ACTION;
+const CHANGE_POSITION_ACTION = "SAVE_SELECTED_ACTION";
+export const CHANGE_POSITION =
+  POSITION_STORE_NAME + "/" + CHANGE_POSITION_ACTION;
 
-const SAVE_SELECTED_ACTION = "SAVE_SELECTED_ACTION";
-export const SAVE_SELECTED = STORE_NAME + "/" + SAVE_SELECTED_ACTION;
+const ON_SAVE_POSITIONS_ACTION = "SAVE_POSITIONS_ACTION";
+export const ON_SAVE_POSITIONS =
+  POSITION_STORE_NAME + "/" + ON_SAVE_POSITIONS_ACTION;
 
-const ADD_VALUE_ACTION = "ADD_VALUE_ACTION";
-export const ADD_VALUE =
-  STORE_NAME + "/" + ADD_VALUE_ACTION;
-
-const EDIT_VALUE_ACTION = "EDIT_VALUE_ACTION";
-export const EDIT_VALUE =
-  STORE_NAME + "/" + EDIT_VALUE_ACTION;
-
-const DELETE_VALUE_ACTION = "DELETE_VALUE_ACTION";
-export const DELETE_VALUE =
-  STORE_NAME + "/" + DELETE_VALUE_ACTION;
-
-const UPDATE_DESCRIPTION_ACTION = "UPDATE_DESCRIPTION_ACTION";
-export const UPDATE_DESCRIPTION =
-  STORE_NAME + "/" + UPDATE_DESCRIPTION_ACTION;
-
-const DELETE_LANGUAGE_ACTION = "DELETE_LANGUAGE_ACTION";
-export const DELETE_LANGUAGE =
-  STORE_NAME + "/" + DELETE_LANGUAGE_ACTION;
-
-const ADD_LANGUAGE_ACTION = "ADD_LANGUAGE_ACTION";
-export const ADD_LANGUAGE =
-  STORE_NAME + "/" + ADD_LANGUAGE_ACTION;
+const SET_CHANGE_ON_EDIT_ACTION = "SET_CHANGE_ON_EDIT_ACTION";
+export const SET_CHANGE_ON_EDIT =
+  POSITION_STORE_NAME + "/" + SET_CHANGE_ON_EDIT_ACTION;
 
 export function createStore() {
   return {
     "namespaced": true,
     "state": {
-      "selected": null,
-      "jobPositions": [
-      ]
+      "jobPositions": [],
+      "jobPositionsChanged": false,
+      "changeInEdit": false,
     },
     "mutations": {
       [addNewJobPosition.name]: addNewJobPosition,
       [deleteJobPosition.name]: deleteJobPosition,
-      [setSelected.name]: setSelected,
-      [saveSelected.name]: saveSelected,
-      [addValueToSelected.name]: addValueToSelected,
-      [deleteValueFromSelected.name]: deleteValueFromSelected,
-      [updateValueOnSelected.name]: updateValueOnSelected,
-      [updateDescriptionOnSelected.name]: updateDescriptionOnSelected,
-      [deleteLanguageOnSelected.name]: deleteLanguageOnSelected,
-      [addLanguageToSelected.name]: addLanguageToSelected,
+      [updateJobPosition.name]: updateJobPosition,
+      [setPositionsSaved.name]: setPositionsSaved,
+      [setChangeInEdit.name]: setChangeInEdit,
     },
     "getters": {
-      [GET_JOB_POSITIONS]: (state) => {
+      [GET_ALL_JOB_POSITIONS]: (state) => {
         return state.jobPositions;
       },
-      [GET_JOB_POSITION]: (state) => {
-        return state.selected;
+      [GET_JOB_POSITION]: (state) => (code) => {
+        for (const position of state.jobPositions) {
+          if (position.code === code) {
+            return position;
+          }
+        }
+        return undefined;
       },
       [GET_ALL_LANGUAGES]: (state) => {
         const languages = new Set();
@@ -87,20 +70,25 @@ export function createStore() {
         });
         return [...languages];
       },
+      [GET_HAS_CHANGED]: (state) => {
+        if (state.jobPositionsChanged || state.changeInEdit) {
+          return true;
+        }
+        for (const position of state.jobPositions) {
+          if (position.hasChanged) {
+            return true;
+          }
+        }
+        return false;
+      }
     },
     "actions": {
       [CREATE_ACTION]: createJobPositionAction,
       [LOAD_ACTION]: loadJobPositionsAction,
       [DELETE_ACTION]: deleteJobPositionAction,
-      [SELECT_ACTION]: selectJobPosition,
-      [SAVE_SELECTED_ACTION]: saveSelectedAction,
-      // Used to modify multi-language array properties.
-      [ADD_VALUE_ACTION]: addValueAction,
-      [EDIT_VALUE_ACTION]: editValueAction,
-      [DELETE_VALUE_ACTION]: deleteValueAction,
-      [UPDATE_DESCRIPTION_ACTION]: updateDescriptionAction,
-      [DELETE_LANGUAGE_ACTION]: deleteLanguageAction,
-      [ADD_LANGUAGE_ACTION]: addLanguageAction,
+      [CHANGE_POSITION_ACTION]: changePositionAction,
+      [ON_SAVE_POSITIONS_ACTION]: saveAction,
+      [SET_CHANGE_ON_EDIT_ACTION]: setChangeOnEditAction,
     }
   }
 }
@@ -109,30 +97,20 @@ function addNewJobPosition(state, jobPosition) {
   state.jobPositions = [
     ...state.jobPositions,
     jobPosition,
-  ]
+  ];
+  state.jobPositionsChanged = true;
 }
 
 function deleteJobPosition(state, code) {
   state.jobPositions = state.jobPositions.filter(item => item.code !== code);
+  state.jobPositionsChanged = true;
 }
 
-function setSelected(state, value) {
-  // Create copy so we safely edit, we add ref. code
-  // so we can identify the item later in the list even if the code
-  // is changed.
-  state.selected = {
-    "refCode": value.code,
-    ...value,
-  };
-}
-
-function saveSelected(state) {
-  const selected = state.selected;
+function updateJobPosition(state, {position, refCode}) {
   const newJobPositions = [];
   state.jobPositions.forEach((item) => {
-    if (item.code === selected.refCode) {
-      delete selected.refCode;
-      newJobPositions.push(selected);
+    if (item.code === refCode) {
+      newJobPositions.push(position);
     } else {
       newJobPositions.push(item);
     }
@@ -140,39 +118,15 @@ function saveSelected(state) {
   state.jobPositions = newJobPositions;
 }
 
-function addValueToSelected(state, event) {
-  const {prop, value} = event;
-  state.selected = {
-    ...state.selected,
-    [prop]: [
-      ...state.selected[prop],
-      value,
-    ]
-  };
+function setPositionsSaved(state) {
+  state.jobPositionsChanged = false;
+  for(const position of state.jobPositions) {
+    position.hasChanged = false;
+  }
 }
 
-function deleteValueFromSelected(state, event) {
-  const {prop, index} = event;
-  state.selected[prop].splice(index, 1);
-}
-
-function updateValueOnSelected(state, event) {
-  const {prop, index, value} = event;
-  state.selected[prop].splice(index, 1, value);
-}
-
-function updateDescriptionOnSelected(state, event) {
-  state.selected.description = event.value;
-}
-
-function deleteLanguageOnSelected(state, event) {
-  const {language} = event;
-  state.selected = deleteLanguage(state.selected, language);
-}
-
-function addLanguageToSelected(state, event) {
-  const {language} = event;
-  state.selected = addLanguage(state.selected, language);
+function setChangeInEdit(state, value) {
+  state.changeInEdit = value;
 }
 
 function createJobPositionAction(context, code) {
@@ -215,50 +169,14 @@ function deleteJobPositionAction(context, code) {
   context.commit(deleteJobPosition.name, code);
 }
 
-function addValueAction(context, event) {
-  context.commit(addValueToSelected.name, {
-    "prop": event["prop"],
-    "value": event["value"]
-  });
+function changePositionAction(context, event) {
+  context.commit(updateJobPosition.name, event);
 }
 
-function editValueAction(context, event) {
-  context.commit(updateValueOnSelected.name, {
-    "prop": event["prop"],
-    "index": event["index"],
-    "value": event["value"],
-  });
+function saveAction(context) {
+  context.commit(setPositionsSaved.name);
 }
 
-function deleteValueAction(context, event) {
-  context.commit(deleteValueFromSelected.name, {
-    "prop": event["prop"],
-    "index": event["index"],
-  });
-}
-
-function selectJobPosition(context, code) {
-  let selected = null;
-  context.state.jobPositions.forEach((position) => {
-    if (position.code === code) {
-      selected = position;
-    }
-  });
-  context.commit(setSelected.name, selected);
-}
-
-function saveSelectedAction(context) {
-  context.commit(saveSelected.name);
-}
-
-function updateDescriptionAction(context, value) {
-  context.commit(updateDescriptionOnSelected.name, {"value": value});
-}
-
-function deleteLanguageAction(context, language) {
-  context.commit(deleteLanguageOnSelected.name, {"language": language});
-}
-
-function addLanguageAction(context, language) {
-  context.commit(addLanguageToSelected.name, {"language": language});
+function setChangeOnEditAction(context, event) {
+  context.commit(setChangeInEdit.name, event);
 }

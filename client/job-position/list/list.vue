@@ -10,7 +10,7 @@
               {{ item["code"] }}
             </v-list-item-title>
             <v-list-item-subtitle>
-              Second line text
+              {{ item.hasChanged ? "Změněno" : "" }}
             </v-list-item-subtitle>
           </v-list-item-content>
           <v-btn
@@ -71,10 +71,14 @@
     CREATE_JOB_POSITION,
     LOAD_JOB_POSITIONS,
     DELETE_JOB_POSITION,
+    ON_SAVE_POSITIONS,
   } from "../job-position-store";
   import FileUpload from "./ui/file-upload";
   import JobDetail from "../detail";
-  import {loadPositionsFromJson, savePositionsToString} from "./../job-position-api";
+  import {
+    loadPositionsFromJson,
+    savePositionsToString,
+  } from "./../job-position-api";
 
   // https://codepen.io/retrofuturistic/pen/tlbHE
 
@@ -101,6 +105,7 @@
       },
       "onDownload": function () {
         const content = savePositionsToString(this.jobPositions);
+        this.$store.dispatch(ON_SAVE_POSITIONS);
         download("Seznam inzerátů.jsonld", content);
       },
       "onUpload": function (files) {

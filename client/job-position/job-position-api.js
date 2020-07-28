@@ -80,7 +80,9 @@ export function createJobPosition(code) {
     ],
     "description": createEmptyMultilanguage(["cs", "en"]),
     // List of all languages.
-    "languages": ["cs", "en"]
+    "languages": ["cs", "en"],
+    // Used to track changes.
+    "hasChanged": true,
   };
 }
 
@@ -223,7 +225,8 @@ export function loadPositionsFromJson(json) {
   // Merge with default to add missing values.
   return positions.map((position) => ({
     ...createJobPosition(position["code"]),
-    ...position
+    ...position,
+    "hasChanged": false,
   }));
 }
 

@@ -32,8 +32,8 @@
 <script>
   import {mapGetters} from "vuex";
   import {
-    STORE_NAME,
-    GET_JOB_POSITIONS,
+    POSITION_STORE_NAME,
+    GET_ALL_JOB_POSITIONS,
     GET_ALL_LANGUAGES,
   } from "../job-position-store";
   import JobPositionList from "./list";
@@ -65,8 +65,8 @@
       "language": "cs",
     }),
     "computed": {
-      ...mapGetters(STORE_NAME, {
-        "positions": GET_JOB_POSITIONS,
+      ...mapGetters(POSITION_STORE_NAME, {
+        "positions": GET_ALL_JOB_POSITIONS,
         "languages": GET_ALL_LANGUAGES,
       }),
     },

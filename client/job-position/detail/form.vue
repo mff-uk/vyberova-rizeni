@@ -5,6 +5,7 @@
         id="code"
         v-model="value.code"
         label="Identifikátor"
+        @input="onChange"
       />
       <v-layout
         wrap
@@ -18,6 +19,7 @@
             id="email"
             v-model="value.email"
             label="Email"
+            @input="onChange"
           />
         </v-flex>
         <v-flex
@@ -28,6 +30,7 @@
             id="emailInformal"
             v-model="value.emailInformal"
             label="Neformální email"
+            @input="onChange"
           />
         </v-flex>
       </v-layout>
@@ -35,6 +38,7 @@
         id="startDate"
         v-model="value.applicationEnd"
         label="Datum podávání přihlášek do"
+        @input="onChange"
       />
       <v-layout
         wrap
@@ -48,6 +52,7 @@
             id="startDate"
             v-model="value.start"
             label="Datum nástupu"
+            @input="onChange"
           />
         </v-flex>
         <v-flex
@@ -57,6 +62,7 @@
           <v-switch
             v-model="value.fluidStart"
             label="Nástup dle dohody"
+            @input="onChange"
           />
         </v-flex>
       </v-layout>
@@ -67,6 +73,7 @@
         label="Pracoviště"
         item-value="@id"
         item-text="text"
+        @input="onChange"
       />
       <v-autocomplete
         id="role"
@@ -75,6 +82,7 @@
         label="Role"
         item-value="@id"
         item-text="text"
+        @input="onChange"
       />
       <v-autocomplete
         id="wageClass"
@@ -83,6 +91,7 @@
         label="Platová třída"
         item-value="@id"
         item-text="text"
+        @input="onChange"
       />
       <v-autocomplete
         id="workingHours"
@@ -91,6 +100,7 @@
         label="Úvazek"
         item-value="@id"
         item-text="text"
+        @input="onChange"
       />
       <v-autocomplete
         id="department"
@@ -99,18 +109,21 @@
         label="Sekce"
         item-value="@id"
         item-text="text"
+        @input="onChange"
       />
       <multivalue-chips-selector
         id=" researchFieldIsvav"
         v-model="value.researchFieldIsvav"
         label="Obor výzkumu (ISVav)"
         :items="researchFieldIsvavCodelist"
+        @input="onChange"
       />
       <multivalue-chips-selector
         id=" researchFieldFord"
         v-model="value.researchFieldFord"
         label="Obor výzkumu (Ford)"
         :items="researchFieldFordCodelist"
+        @input="onChange"
       />
       <multiline-chips
         id="expertise"
@@ -121,6 +134,7 @@
         @create="onCreateValue"
         @edit="onEditValue"
         @delete="onDeleteValue"
+        @input="onChange"
       />
       <multiline-chips
         id="qualification"
@@ -131,6 +145,7 @@
         @create="onCreateValue"
         @edit="onEditValue"
         @delete="onDeleteValue"
+        @input="onChange"
       />
       <multiline-chips
         id="documents"
@@ -141,6 +156,7 @@
         @create="onCreateValue"
         @edit="onEditValue"
         @delete="onDeleteValue"
+        @input="onChange"
       />
       <multilang-text-field
         id="description"
@@ -149,6 +165,7 @@
         :label-selector="labelSelector"
         @edit="onEditDescription"
         @clear="onClearDescription"
+        @input="onChange"
       />
     </form>
     <edit-multilang-dialog
@@ -157,6 +174,7 @@
       :multiline="editDialog.multiline"
       @close="editDialog.active = false"
       @save="onEditMultilangDialogSave"
+      @input="onChange"
     />
   </div>
 </template>
@@ -167,9 +185,6 @@
   import MultilangTextField from "./ui/multilang-text-field";
   import EditDialog from "./ui/edit-multilang-dialog";
   import MultiValueSelector from "./ui/multivalue-chips-selector";
-  import {
-    ADD_VALUE, EDIT_VALUE, DELETE_VALUE, UPDATE_DESCRIPTION,
-  } from "./../job-position-store";
   import {
     createValue,
     multiLangValueToArray,
@@ -189,6 +204,9 @@
     ISVAV,
     FORD
   } from "../codelist-names"
+  import {
+    SET_CHANGE_ON_EDIT
+  } from "../job-position-store";
 
   export default {
     "name": "job-position-form",
@@ -199,7 +217,18 @@
       "edit-multilang-dialog": EditDialog,
       "multivalue-chips-selector": MultiValueSelector,
     },
+    "props": {
+      "value": {
+        "required": true
+      },
+      "language": {
+        "type": String,
+        "required": true
+      }
+    },
     "data": () => ({
+      // Initial value is replaced by the one provided by parent component.
+      "changes": {},
       "editDialog": {
         "active": false,
         "value": [],
@@ -232,18 +261,12 @@
         return this.prepareCodeList(FORD);
       },
     },
-    "props": {
-      "value": {
-        "required": true
-      },
-      "language": {
-        "type": String,
-        "required": true
-      }
-    },
     "methods": {
-      "labelSelector": function (item) {
-        return item[this.language]["value"];
+      "onChange": function () {
+        if (!this.value.hasChanged) {
+          this.$store.dispatch(SET_CHANGE_ON_EDIT, true);
+        }
+        this.value.hasChanged = true;
       },
       "onCreateValue": function (event) {
         const {"userValue": prop} = event;
@@ -255,15 +278,13 @@
         this.editDialog.callback = this.callbackCreateValue;
       },
       "callbackCreateValue": function (value) {
-        this.$store.dispatch(ADD_VALUE, {
-          "prop": this.editDialog.prop,
-          "index": this.editDialog.index,
-          "value": arrayToMultiLangValue(value)
-        });
+        this.value[this.editDialog.prop] =[
+          ...this.value[this.editDialog.prop],
+          arrayToMultiLangValue(value)
+        ];
       },
       "onDeleteValue": function (event) {
-        const {index, "userValue": prop} = event;
-        this.$store.dispatch(DELETE_VALUE, {"prop": prop, "index": index});
+        this.value[event.userValue].splice(event.index, 1);
       },
       "onEditValue": function (event) {
         const {value, index, "userValue": prop} = event;
@@ -275,11 +296,8 @@
         this.editDialog.callback = this.callbackEditValue;
       },
       "callbackEditValue": function (value) {
-        this.$store.dispatch(EDIT_VALUE, {
-          "prop": this.editDialog.prop,
-          "index": this.editDialog.index,
-          "value": arrayToMultiLangValue(value)
-        });
+        this.value[this.editDialog.prop]
+          .splice(this.editDialog.index, 1, arrayToMultiLangValue(value));
       },
       "onEditMultilangDialogSave": function (value) {
         this.editDialog.active = false;
@@ -293,14 +311,10 @@
         this.editDialog.callback = this.callbackEditDescription;
       },
       "callbackEditDescription": function (value) {
-        this.$store.dispatch(
-          UPDATE_DESCRIPTION,
-          arrayToMultiLangValue(value));
+        this.value.description = arrayToMultiLangValue(value);
       },
       "onClearDescription": function () {
-        this.$store.dispatch(
-          UPDATE_DESCRIPTION,
-          createEmptyMultilanguage(this.value.languages));
+        this.value.description = createEmptyMultilanguage(this.value.languages);
       },
       "prepareCodeList": function (name) {
         /*
@@ -320,6 +334,9 @@
           "@id": item["@id"],
           "text": this.selectLabel(item)
         }));
+      },
+      "labelSelector": function (item) {
+        return item[this.language]["value"];
       },
       "selectLabel": function (value) {
         const currentValue = value[this.language];

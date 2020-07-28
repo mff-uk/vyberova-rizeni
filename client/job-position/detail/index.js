@@ -1,12 +1,12 @@
 import {register} from "../../app/register";
 import JobPositionDetail from "./job-position-detail-view";
-import {createStore, STORE_NAME} from "../job-position-store";
+import {createStore, POSITION_STORE_NAME} from "../job-position-store";
 
 const spec = {
   "route-name": "job-position-detail",
   "route": "/:code",
   "component": JobPositionDetail,
-  "store-name": STORE_NAME,
+  "store-name": POSITION_STORE_NAME,
   "store-factory": createStore,
 };
 
