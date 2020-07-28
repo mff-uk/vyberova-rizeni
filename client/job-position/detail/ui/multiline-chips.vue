@@ -21,6 +21,7 @@
       :key="index"
     >
       <v-chip
+        class="spacing"
         close
         @click:close="onDelete(item, index)"
         @click="onEdit(item, index)"
@@ -89,5 +90,9 @@
     height: 100% !important;
     width: 100% !important;
     font-size: 1.2rem !important;
+  }
+
+  .spacing {
+    margin-top: 0.25rem;
   }
 </style>
