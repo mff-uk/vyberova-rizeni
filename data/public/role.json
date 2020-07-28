@@ -1,6 +1,6 @@
 {
   "@context": "https://data.gov.cz/otevřené-formální-normy/číselníky/draft/schémata/číselníky.context.jsonld",
-  "id": "https://data.mff.cuni.cz/zdroj/číselník/role",
+  "id": "https://data.mvcr.gov.cz/zdroj/číselníky/akademické-pozice",
   "typ": "číselník",
   "název-číselníku": {
     "cs":  "Role MFF UK",
@@ -9,7 +9,7 @@
   "položky": [
     {
       "typ": "položka",
-      "id": "https://data.mff.cuni.cz/zdroj/číselník/role/profesor",
+      "id": "https://data.mvcr.gov.cz/zdroj/číselníky/akademické-pozice/položky/profesor",
       "kód": "profesor",
       "název": {
         "cs": "Profesor/ka",
@@ -18,7 +18,7 @@
     },
     {
       "typ": "položka",
-      "id": "https://data.mff.cuni.cz/zdroj/číselník/role/docent",
+      "id": "https://data.mvcr.gov.cz/zdroj/číselníky/akademické-pozice/položky/docent",
       "kód": "docent",
       "název": {
         "cs": "Docent/ka",
@@ -27,7 +27,7 @@
     },
     {
       "typ": "položka",
-      "id": "https://data.mff.cuni.cz/zdroj/číselník/role/OA",
+      "id": "https://data.mvcr.gov.cz/zdroj/číselníky/akademické-pozice/položky/OA",
       "kód": "OA",
       "název": {
         "cs": "Odborný asistent, odborná asistentka",
@@ -36,7 +36,7 @@
     },
     {
       "typ": "položka",
-      "id": "https://data.mff.cuni.cz/zdroj/číselník/role/VP",
+      "id": "https://data.mvcr.gov.cz/zdroj/číselníky/akademické-pozice/položky/VP",
       "kód": "VP",
       "název": {
         "cs": "Vědecký pracovník, věděcká pracovnice",
@@ -45,7 +45,7 @@
     },
     {
       "typ": "položka",
-      "id": "https://data.mff.cuni.cz/zdroj/číselník/role/lektor",
+      "id": "https://data.mvcr.gov.cz/zdroj/číselníky/akademické-pozice/položky/lektor",
       "kód": "lektor",
       "název": {
         "cs": "Lektor/ka",
@@ -54,7 +54,7 @@
     },
     {
       "typ": "položka",
-      "id": "https://data.mff.cuni.cz/zdroj/číselník/role/vedoucí-katedry",
+      "id": "https://data.mvcr.gov.cz/zdroj/číselníky/akademické-pozice/položky/vedoucí-katedry",
       "kód": "vedoucí-katedry",
       "název": {
         "cs": "Vedoucí katedry",

@@ -1,6 +1,6 @@
 {
   "@context": "https://data.gov.cz/otevřené-formální-normy/číselníky/draft/schémata/číselníky.context.jsonld",
-  "id": "https://data.mff.cuni.cz/zdroj/číselník/úvazek",
+  "id": "https://data.mvcr.gov.cz/zdroj/číselníky/typy-pracovních-vztahů",
   "typ": "číselník",
   "název-číselníku": {
     "cs": "Úvazek"
@@ -8,7 +8,7 @@
   "položky": [
     {
       "typ": "položka",
-      "id": "https://data.mff.cuni.cz/zdroj/číselník/úvazek/plný",
+      "id": "https://data.mvcr.gov.cz/zdroj/číselníky/typy-pracovních-vztahů/položky/plný-úvazek",
       "kód": "plný",
       "název": {
         "cs": "Plný",
@@ -17,7 +17,7 @@
     },
     {
       "typ": "položka",
-      "id": "https://data.mff.cuni.cz/zdroj/číselník/úvazek/zkrácený",
+      "id": "https://data.mvcr.gov.cz/zdroj/číselníky/typy-pracovních-vztahů/položky/zkrácený-úvazek",
       "kód": "zkrácený",
       "název": {
         "cs": "Zkrácený",

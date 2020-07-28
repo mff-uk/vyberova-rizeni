@@ -1,6 +1,6 @@
 {
   "@context": "https://data.gov.cz/otevřené-formální-normy/číselníky/draft/schémata/číselníky.context.jsonld",
-  "id": "https://data.mff.cuni.cz/zdroj/číselník/obor",
+  "id": "https://data.mff.cuni.cz/zdroj/číselník/sekce",
   "typ": "číselník",
   "název-číselníku": {
     "cs": "Obor"
@@ -8,7 +8,7 @@
   "položky": [
     {
       "typ": "položka",
-      "id": "https://data.mff.cuni.cz/zdroj/číselník/obor/matematika",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/sekce/položky/matematika",
       "kód": "matematika",
       "název": {
         "cs": "Matematika",
@@ -17,7 +17,7 @@
     },
     {
       "typ": "položka",
-      "id": "https://data.mff.cuni.cz/zdroj/číselník/obor/fyzika",
+      "id": "https://data.mff.cuni.cz/zdroj/číselník/sekce/položky/fyzika",
       "kód": "fyzika",
       "název": {
         "cs": "Fyzika",
@@ -26,7 +26,7 @@
     },
     {
       "typ": "položka",
-      "id": "https://data.mff.cuni.cz/zdroj/číselník/obor/informatika",
+      "id": "https://data.mff.cuni.cz/zdroj/číselníky/sekce/položky/informatika",
       "kód": "informatika",
       "název": {
         "cs": "Informatika",
