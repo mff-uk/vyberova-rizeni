@@ -127,7 +127,99 @@ describe("JobPositionIO", () => {
     }];
     const writer = new JobPositionWriter();
     const actual = JSON.parse(writer.write(expected));
-    expect(actual["@graph"][0]["volnýText"].length).toBe(0);
+    expect(Object.keys(actual[0]["popis"]).length).toBe(0);
   });
+
+  test("We should be able to read and write according to specification.", () => {
+    const expected = [{
+      "@context": "https://pod-test.mvcr.gov.cz/otevřené-formální-normy/pracovní-místa-ve-vědě-a-výzkumu/draft/kontexty/pracovní-místo-ve-vědě-a-výzkumu.jsonld",
+      "typ": "Pracovní místo ve vědě a výzkumu",
+      "iri": "https://data.mff.cuni.cz/zdroj/výběrová-řízení/8d3d37f9-f808-4957-8075-eff87d2ed75a",
+      "id": "8d3d37f9-f808-4957-8075-eff87d2ed75a",
+      "nástup_dle_dohody": true,
+      "kontakt": [{
+        "typ": "Kontakt",
+        "název": {
+          "cs": "Oficiální e-mail",
+          "en": "Official e-mail"
+        },
+        "email": "mailto:konkurzy@dekanat.mff.cuni.cz"
+      }, {
+        "typ": "Kontakt",
+        "název": {
+          "cs": "Neformální e-mail",
+          "en": "Informal e-mail"
+        },
+        "email": "mailto:neformalni@kkk.cz"
+      }],
+      "termín_podání": {
+        "typ": "Časový okamžik",
+        "datum": "2020-07-25"
+      },
+      "nástup": {
+        "typ": "Časový okamžik",
+        "datum": "2020-07-31"
+      },
+      "kvalifikace": [{
+        "typ": "Kvalifikace",
+        "název": {
+          "cs": "ph.d. 7 let",
+          "en": "7 years ph.d."
+        }
+      }],
+      "požadované_dokumenty": [{
+        "název": {
+          "cs": "strukturovaný životopis",
+          "en": "a curriculum vitae"
+        }
+      }, {
+        "název": {
+          "cs": "doklady o vzdělání",
+          "en": "proofs of education and awarding of academic titles"
+        }
+      }, {
+        "název": {
+          "cs": "seznam publikační aktivity",
+          "en": "a list of publications"
+        }
+      }, {
+        "název": {
+          "cs": "přehled citační odezvy (nejlépe podle Web of Science, MathSci či jiných uznávaných databází)",
+          "en": "a list of citations (preferably by WoS, MathSciNet or other relevant databases)"
+        }
+      }, {
+        "název": {
+          "cs": "popis dosavadní pedagogické praxe",
+          "en": "a description of teaching experience"
+        }
+      }],
+      "popis": {
+        "cs": "volnýýý",
+        "en": "freee"
+      },
+      "obor_isvav": ["https://data.mvcr.gov.cz/zdroj/číselníky/klasifikace-výzkumných-oborů/položky/B"],
+      "pracoviště": {
+        "typ": "Pracoviště",
+        "iri": "https://data.mff.cuni.cz/zdroj/číselník/organizační-struktura/oddělení/102"
+      },
+      "typ_pracovního_vztahu": [
+        "https://data.mvcr.gov.cz/zdroj/číselníky/typy-pracovních-vztahů/položky/plný-úvazek"
+      ],
+      "akademická_pozice": "https://data.mvcr.gov.cz/zdroj/číselníky/akademické-pozice/položky/docent",
+      // Lines bellow are not part of the OFN (format specification).
+      "sekce": "https://data.mff.cuni.cz/zdroj/číselníky/sekce/položky/informatika",
+      "mzdová_třída": "https://data.mff.cuni.cz/zdroj/číselníky/mzdové-třídy/položky/AP3",
+      "expertíza": [{
+        "název": {
+          "cs": "administrátor",
+          "en": "admin"
+        }
+      }]
+    }];
+    const reader = new JobPositionReader();
+    const writer = new JobPositionWriter();
+    const actual = JSON.parse(writer.write(reader.read(expected)));
+    expect(actual).toEqual(expected);
+  })
 
 });

@@ -4,6 +4,9 @@ const FORMAL_EMAIL_LABEL = "Oficiální e-mail";
 const FORMAL_EMAIL_LABEL_EN = "Official e-mail";
 const INFORMAL_EMAIL_LABEL = "Neformální e-mail";
 const INFORMAL_EMAIL_LABEL_EN = "Informal e-mail";
+const EMAIL_PREFIX = "mailto:";
+
+const IRI_PREFIX = "https://data.mff.cuni.cz/zdroj/výběrová-řízení/";
 
 /**
  * Load only values provided inside the data.
@@ -11,33 +14,33 @@ const INFORMAL_EMAIL_LABEL_EN = "Informal e-mail";
 export function JobPositionReader() {
 
   this["read"] = function read(json) {
-    return json["@graph"].map((position) => readPosition(position));
+    return json.map((position) => readPosition(position));
   };
 
   function readPosition(position) {
     const result = {
-      "code": position["identifikátor"],
+      "code": position["id"],
     };
-    setIfNotEmpty(result, "fluidStart", position["nástupDleDohody"]);
+    setIfNotEmpty(result, "fluidStart", position["nástup_dle_dohody"]);
     setDateTime(result, "start", position["nástup"]);
-    setDateTime(result, "applicationEnd", position["termínPodání"]);
+    setDateTime(result, "applicationEnd", position["termín_podání"]);
     setIfNotEmpty(result, "workingPlace", position["pracoviště"]);
-    setIfNotEmpty(result, "role", position["role"]);
-    setIfNotEmpty(result, "wageClass", position["platováTřída"]);
-    setIfNotEmpty(result, "workingHours", position["typVztahu"]);
-    setIfNotEmpty(result, "department", position["obor"]);
+    setIfNotEmpty(result, "role", position["akademická_pozice"]);
+    setIfNotEmpty(result, "wageClass", position["mzdová_třída"]);
+    setIfNotEmpty(result, "workingHours", position["typ_pracovního_vztahu"]);
+    setIfNotEmpty(result, "department", position["sekce"]);
     loadContacts(result, position);
     setIfNotEmpty(result, "researchFieldIsvav", position["obor_isvav"]);
     setIfNotEmpty(result, "researchFieldFord", position["obor_frascati"]);
 
-    const description = jsonToMultilanguage(position["volnýText"]);
+    const description = jsonToMultilanguage(position["popis"]);
     if (description !== null) {
       result["description"] = description;
     }
 
     setMultilanguage(result, "expertise", position["expertíza"]);
     setMultilanguage(result, "qualification", position["kvalifikace"]);
-    setMultilanguage(result, "documents", position["dokumenty"]);
+    setMultilanguage(result, "documents", position["požadované_dokumenty"]);
     result["languages"] = collectLanguages(result);
 
     generateEmptyStrings(result["qualification"], result["languages"]);
@@ -51,8 +54,8 @@ export function JobPositionReader() {
     if (value === undefined || value === null) {
       return;
     }
-    if (value["inXSDDateTime"]) {
-      data[key] = value["inXSDDateTime"];
+    if (value["datum"]) {
+      data[key] = value["datum"];
     }
   }
 
@@ -63,13 +66,13 @@ export function JobPositionReader() {
     }
     contacts.forEach((item) => {
       const email = item["email"];
-      asArray(item["druh"]).forEach((item) => {
-        const type = item["@value"];
+      asArray(item["název"]).forEach((item) => {
+        const type = item["cs"];
         if (type === FORMAL_EMAIL_LABEL) {
-          result["email"] = email;
+          result["email"] = email.substr(EMAIL_PREFIX.length);
         }
         if (type === INFORMAL_EMAIL_LABEL) {
-          result["emailInformal"] = email;
+          result["emailInformal"] = email.substr(EMAIL_PREFIX.length);
         }
       });
     });
@@ -80,9 +83,9 @@ export function JobPositionReader() {
       return null;
     }
     const result = {};
-    values.forEach((item) => {
-      result[item["@language"]] = {
-        "value": item["@value"],
+    Object.keys(values).forEach((language) => {
+      result[language] = {
+        "value": values[language],
         "errors": []
       }
     });
@@ -164,150 +167,94 @@ function setIfNotEmpty(data, key, value) {
 export function JobPositionWriter() {
 
   this["write"] = function write(positions) {
-    const result = {
-      "@context": createContext(),
-      "@graph": positions.map((position) => writePosition(position)),
-    };
+    const result = positions.map((position) => writePosition(position));
     return JSON.stringify(result, null, 2);
   };
 
   function writePosition(position) {
     const result = {
-      "@type": ["Pozice"],
-      "identifikátor": position["code"],
-      "nástupDleDohody": position["fluidStart"],
+      "@context": createContext(),
+      "typ": "Pracovní místo ve vědě a výzkumu",
+      "iri": IRI_PREFIX + position["code"],
+      "id": position["code"],
+      "nástup_dle_dohody": position["fluidStart"],
       "kontakt": []
     };
-    setIfNotEmpty(result, "obor", position["department"]);
-    setIfNotEmpty(result, "role", position["role"]);
-    setIfNotEmpty(result, "platováTřída", position["wageClass"]);
-    setIfNotEmpty(result, "typVztahu", position["workingHours"]);
+
+    setIfNotEmpty(result, "sekce", position["department"]);
+    setIfNotEmpty(result, "akademická_pozice", position["role"]);
+    setIfNotEmpty(result, "mzdová_třída", position["wageClass"]);
+    setIfNotEmpty(result, "typ_pracovního_vztahu", position["workingHours"]);
     setIfNotEmpty(result, "pracoviště", position["workingPlace"]);
+
     if (position["email"]) {
       result["kontakt"].push({
-        "@type": ["Kontakt"],
-        "druh": [{
-          "@language": "cs",
-          "@value": FORMAL_EMAIL_LABEL,
-        }, {
-          "@language": "en",
-          "@value": FORMAL_EMAIL_LABEL_EN,
-        }],
-        "email": position["email"],
+        "typ": "Kontakt",
+        "název": {
+          "cs": FORMAL_EMAIL_LABEL,
+          "en": FORMAL_EMAIL_LABEL_EN,
+        },
+        "email": EMAIL_PREFIX + position["email"],
       });
     }
     if (position["emailInformal"]) {
       result["kontakt"].push({
-        "@type": ["Kontakt"],
-        "druh": [{
-          "@language": "cs",
-          "@value": INFORMAL_EMAIL_LABEL,
-        }, {
-          "@language": "en",
-          "@value": INFORMAL_EMAIL_LABEL_EN,
-        }],
-        "email": position["emailInformal"],
+        "typ": "Kontakt",
+        "název": {
+          "cs": INFORMAL_EMAIL_LABEL,
+          "en": INFORMAL_EMAIL_LABEL_EN,
+        },
+        "email": EMAIL_PREFIX + position["emailInformal"],
       });
     }
-    if (position["start"]) {
-      result["nástup"] = {
-        "@type": ["Instant"],
-        "inXSDDateTime": position["start"],
-      };
-    }
-    if (position["applicationEnd"]) {
-      result["termínPodání"] = {
-        "@type": ["Instant"],
-        "inXSDDateTime": position["applicationEnd"],
-      };
-    }
+
     if (!isBlank(position["description"])) {
-      result["volnýText"] = multilanguageToJson(position["description"]);
+      result["popis"] = multilanguageToJson(position["description"]);
     }
 
     setIfNotEmpty(result, "obor_isvav", position["researchFieldIsvav"]);
     setIfNotEmpty(result, "obor_frascati", position["researchFieldFord"]);
 
+    setDateTimeIfNotEmpty(result, "nástup", position["start"]);
+    setDateTimeIfNotEmpty(result, "termín_podání", position["applicationEnd"]);
+
     result["expertíza"] = position["expertise"]
       .map((item) => multilanguageToJson(item))
-      .map((values) => ({"@type": ["Expertíza"], "název": values,}));
+      .map((values) => ({"název": values}));
     result["kvalifikace"] = position["qualification"]
       .map((item) => multilanguageToJson(item))
-      .map((values) => ({"@type": ["Kvalifikace"], "název": values,}));
-    result["dokumenty"] = position["documents"]
+      .map((values) => ({"typ": "Kvalifikace", "název": values}));
+    result["požadované_dokumenty"] = position["documents"]
       .map((item) => multilanguageToJson(item))
-      .map((values) => ({"@type": ["Dokumenty"], "název": values,}));
+      .map((values) => ({"název": values}));
     return result;
   }
 
   function multilanguageToJson(item) {
-    const result = [];
+    const result = {};
     Object.keys(item).forEach((lang) => {
       if (isBlank(item[lang].value)) {
         return;
       }
-      result.push({
-        "@value": item[lang].value,
-        "@language": lang,
-      });
+      result[lang] = item[lang].value;
     });
     return result;
+  }
+
+  function setDateTimeIfNotEmpty(data, key, value) {
+    if (value === undefined || value === null) {
+      return;
+    }
+    data[key] = {
+      "typ": "Časový okamžik",
+      "datum": value,
+    }
   }
 
 }
 
 function createContext() {
-  return {
-    "ofn-z": "https://ofn.gov.cz/slovník/základní-datové-typy/",
-    "ofn-k": "https://ofn.gov.cz/slovník/kontakty/",
-    "ofn-v": "https://ofn.gov.cz/slovník/výběrová-řízení/",
-    "mff-v": "https://data.mff.cuni.cz/slovník/výběrová-řízení/",
-    "time": "http://www.w3.org/2006/time#",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "Pozice" : "ofn-v:Pozice",
-    "identifikátor": "ofn-v:identifikátor",
-    "nástupDleDohody": "ofn-v:nástupDleDohody",
-    "kontakt": "ofn-v:kontakt",
-    "Kontakt": "ofn-k:Kontakt",
-    "druh": "ofn-k:druh",
-    "email": "ofn-k:email",
-    "platováTřída": {
-      "@id": "ofn-v:platovéPodmínky",
-      "@type": "@id",
-    },
-    "pracoviště": {
-      "@id": "ofn-v:pracoviště",
-      "@type": "@id",
-    },
-    "nástup": "ofn-v:nástup",
-    "Instant": "time:Instant",
-    "inXSDDateTime": {
-      "@id": "time:inXSDDateTime",
-      "@type": "xsd:dateTime"
-    },
-    "termínPodání": "ofn-v:termínPodání",
-    "obor": {
-      "@id": "ofn-v:obor",
-      "@type": "@id",
-    },
-    "role": {
-      "@id": "ofn-v:role",
-      "@type": "@id",
-    },
-    "typVztahu": {
-      "@id": "ofn-v:typVztahu",
-      "@type": "@id",
-    },
-    "název": "ofn-z:název",
-    "oborVýzkumu": "mff-v:oborVýzkumu",
-    "OborVýzkumu": "mff-v:OborVýzkumu",
-    "dokumenty": "mff-v:dokumenty",
-    "Dokumenty": "mff-v:Dokumenty",
-    "expertíza": "mff-v:expertíza",
-    "Expertíza": "mff-v:Expertíza",
-    "kvalifikace": "mff-v:kvalifikace",
-    "Kvalifikace": "mff-v:Kvalifikace",
-    "volnýText": "mff-v:volnýText",
-    "VolnýText": "mff-v:VolnýText",
-  };
+  return "https://pod-test.mvcr.gov.cz/otevřené-formální-normy/" +
+    "pracovní-místa-ve-vědě-a-výzkumu/draft/kontexty/" +
+    "pracovní-místo-ve-vědě-a-výzkumu.jsonld";
 }
