@@ -48,6 +48,9 @@
     "data": () => ({
       "local" : [],
     }),
+    "mounted": function() {
+      this.local = [...this.value];
+    },
     "watch": {
       "value": function(value) {
         this.local = [...value];

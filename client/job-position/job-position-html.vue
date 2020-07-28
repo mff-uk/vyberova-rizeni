@@ -24,13 +24,13 @@
     <ul v-show="researchFieldLength > 0">
       <li
         v-for="(item, index) in value.researchFieldIsvav"
-        :key="index"
+        :key="'isvav'+index"
       >
         {{ researchFieldIsvavLabel(item) }}
       </li>
       <li
         v-for="(item, index) in value.researchFieldFord"
-        :key="index"
+        :key="'ford'+index"
       >
         {{ researchFieldFordLabel(item) }}
       </li>
@@ -203,8 +203,10 @@
       }
       if (item[language]) {
         return item[language];
+      } else if (item["cs"]) {
+          return item["cs"];
       } else {
-        return item["cs"];
+        return item["en"];
       }
     }
     return value;
