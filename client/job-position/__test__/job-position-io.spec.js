@@ -127,7 +127,7 @@ describe("JobPositionIO", () => {
     }];
     const writer = new JobPositionWriter();
     const actual = JSON.parse(writer.write(expected));
-    expect(Object.keys(actual[0]["popis"]).length).toBe(0);
+    expect(actual[0]["popis"]).toEqual(undefined);
   });
 
   test("We should be able to read and write according to specification.", () => {

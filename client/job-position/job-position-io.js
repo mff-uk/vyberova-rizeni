@@ -24,10 +24,13 @@ export function JobPositionReader() {
     setIfNotEmpty(result, "fluidStart", position["nástup_dle_dohody"]);
     setDateTime(result, "start", position["nástup"]);
     setDateTime(result, "applicationEnd", position["termín_podání"]);
-    setIfNotEmpty(result, "workingPlace", position["pracoviště"]);
+    setIfNotEmpty(result, "workingPlace", position["pracoviště"],
+      value => value["iri"]);
     setIfNotEmpty(result, "role", position["akademická_pozice"]);
     setIfNotEmpty(result, "wageClass", position["mzdová_třída"]);
-    setIfNotEmpty(result, "workingHours", position["typ_pracovního_vztahu"]);
+    setIfNotEmpty(
+      result, "workingHours", position["typ_pracovního_vztahu"],
+      value => value[0]);
     setIfNotEmpty(result, "department", position["sekce"]);
     loadContacts(result, position);
     setIfNotEmpty(result, "researchFieldIsvav", position["obor_isvav"]);
@@ -158,9 +161,9 @@ export function JobPositionReader() {
 
 }
 
-function setIfNotEmpty(data, key, value) {
+function setIfNotEmpty(data, key, value, transform = (x) => x) {
   if (value) {
-    data[key] = value;
+    data[key] = transform(value);
   }
 }
 
@@ -184,8 +187,14 @@ export function JobPositionWriter() {
     setIfNotEmpty(result, "sekce", position["department"]);
     setIfNotEmpty(result, "akademická_pozice", position["role"]);
     setIfNotEmpty(result, "mzdová_třída", position["wageClass"]);
-    setIfNotEmpty(result, "typ_pracovního_vztahu", position["workingHours"]);
-    setIfNotEmpty(result, "pracoviště", position["workingPlace"]);
+    setIfNotEmpty(
+      result, "typ_pracovního_vztahu", position["workingHours"],
+      value => [value]);
+    setIfNotEmpty(result, "pracoviště", position["workingPlace"],
+      value => ({
+        "typ": "Pracoviště",
+        "iri": value
+      }));
 
     if (position["email"]) {
       result["kontakt"].push({
@@ -208,8 +217,10 @@ export function JobPositionWriter() {
       });
     }
 
-    if (!isBlank(position["description"])) {
-      result["popis"] = multilanguageToJson(position["description"]);
+    // We convert it first as it make it easier to check if it is empty.
+    const description = multilanguageToJson(position["description"]);
+    if (Object.keys(description).length > 0) {
+      result["popis"] = description;
     }
 
     setIfNotEmpty(result, "obor_isvav", position["researchFieldIsvav"]);
