@@ -44,6 +44,7 @@ export function createStore() {
     },
     "mutations": {
       [addNewJobPosition.name]: addNewJobPosition,
+      [addLoadedJobPosition.name]: addLoadedJobPosition,
       [deleteJobPosition.name]: deleteJobPosition,
       [updateJobPosition.name]: updateJobPosition,
       [setPositionsSaved.name]: setPositionsSaved,
@@ -94,11 +95,15 @@ export function createStore() {
 }
 
 function addNewJobPosition(state, jobPosition) {
+  addLoadedJobPosition(state, jobPosition);
+  state.jobPositionsChanged = true;
+}
+
+function addLoadedJobPosition(state, jobPosition) {
   state.jobPositions = [
     ...state.jobPositions,
     jobPosition,
   ];
-  state.jobPositionsChanged = true;
 }
 
 function deleteJobPosition(state, code) {
@@ -161,7 +166,7 @@ function loadJobPositionsAction(context, {payload}) {
       return;
     }
     codes.push(jobPosition.code);
-    context.commit(addNewJobPosition.name, jobPosition);
+    context.commit(addLoadedJobPosition.name, jobPosition);
   });
 }
 
