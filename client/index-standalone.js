@@ -13,7 +13,7 @@ require("vuetify/dist/vuetify.css");
 import {cache as codelistCache} from "./codelist/codelist-api";
 import {
   WAGE_CLASS,
-  ROLE,
+  POZICE,
   ORGANIZATION_STRUCTURE,
   DEPARTMENT,
   TIME,
@@ -22,7 +22,7 @@ import {
 } from "./job-position/codelist-names";
 
 import wageClass from "../data/public/mzdové-třídy.json";
-import role from "../data/public/role.json";
+import role from "../data/public/akademické-pozice.json";
 import organizationStructure from "../data/public/organizační-struktura.json";
 import department from "../data/public/obor.json";
 import time from "../data/public/úvazek.json";
@@ -34,7 +34,7 @@ import ford from "../data/public/klasifikace-oborů-ford.json";
  */
 
 codelistCache[WAGE_CLASS] = wageClass;
-codelistCache[ROLE] = role;
+codelistCache[POZICE] = role;
 codelistCache[ORGANIZATION_STRUCTURE] = organizationStructure;
 codelistCache[DEPARTMENT] = department;
 codelistCache[TIME] = time;

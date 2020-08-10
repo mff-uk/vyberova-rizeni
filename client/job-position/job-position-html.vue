@@ -103,7 +103,7 @@
   import {
     WAGE_CLASS,
     ORGANIZATION_STRUCTURE,
-    ROLE,
+    POZICE,
     TIME,
     ISVAV,
     FORD
@@ -141,7 +141,7 @@
       },
       "roleLabel": function () {
         const name = CODELIST_STORE_NAME + "/" + GET_CODELIST;
-        const codelist = this.$store.getters[name](ROLE);
+        const codelist = this.$store.getters[name](POZICE);
         return selectFromCodeList(
           codelist, this.language, this.value.role);
       },

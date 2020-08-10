@@ -64,7 +64,7 @@
     DEPARTMENT,
     TIME,
     ORGANIZATION_STRUCTURE,
-    ROLE,
+    POZICE,
     WAGE_CLASS,
     ISVAV,
     FORD,
@@ -99,7 +99,7 @@
     "mounted": function () {
       this.$store.dispatch(LOAD_CODELIST, WAGE_CLASS);
       this.$store.dispatch(LOAD_CODELIST, ORGANIZATION_STRUCTURE);
-      this.$store.dispatch(LOAD_CODELIST, ROLE);
+      this.$store.dispatch(LOAD_CODELIST, POZICE);
       this.$store.dispatch(LOAD_CODELIST, DEPARTMENT);
       this.$store.dispatch(LOAD_CODELIST, TIME);
       this.$store.dispatch(LOAD_CODELIST, ISVAV);

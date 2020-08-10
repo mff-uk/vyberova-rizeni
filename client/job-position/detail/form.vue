@@ -198,7 +198,7 @@
   import {
     WAGE_CLASS,
     ORGANIZATION_STRUCTURE,
-    ROLE,
+    POZICE,
     DEPARTMENT,
     TIME,
     ISVAV,
@@ -246,7 +246,7 @@
         return this.prepareCodeList(ORGANIZATION_STRUCTURE);
       },
       "roleCodelist": function () {
-        return this.prepareCodeList(ROLE);
+        return this.prepareCodeList(POZICE);
       },
       "departmentCodelist": function () {
         return this.prepareCodeList(DEPARTMENT);
