@@ -132,8 +132,8 @@ describe("JobPositionIO", () => {
 
   test("We should be able to read and write according to specification.", () => {
     const expected = [{
-      "@context": "https://pod-test.mvcr.gov.cz/otevřené-formální-normy/pracovní-místa-ve-vědě-a-výzkumu/draft/kontexty/pracovní-místo-ve-vědě-a-výzkumu.jsonld",
-      "typ": "Pracovní místo ve vědě a výzkumu",
+      "@context": "https://data.mff.cuni.cz/dokumentace/pracovní-místa-mff-uk/kontexty/pracovní-místa-mff-uk.jsonld",
+      "typ": ["Pracovní místo", "Pracovní místo ve vědě a výzkumu", "Pracovní místo na MFF UK"],
       "iri": "https://data.mff.cuni.cz/zdroj/výběrová-řízení/8d3d37f9-f808-4957-8075-eff87d2ed75a",
       "id": "8d3d37f9-f808-4957-8075-eff87d2ed75a",
       "nástup_dle_dohody": true,
@@ -168,26 +168,31 @@ describe("JobPositionIO", () => {
         }
       }],
       "požadované_dokumenty": [{
+        "typ": "Požadovaný dokument",
         "název": {
           "cs": "strukturovaný životopis",
           "en": "a curriculum vitae"
         }
       }, {
+        "typ": "Požadovaný dokument",
         "název": {
           "cs": "doklady o vzdělání",
           "en": "proofs of education and awarding of academic titles"
         }
       }, {
+        "typ": "Požadovaný dokument",
         "název": {
           "cs": "seznam publikační aktivity",
           "en": "a list of publications"
         }
       }, {
+        "typ": "Požadovaný dokument",
         "název": {
           "cs": "přehled citační odezvy (nejlépe podle Web of Science, MathSci či jiných uznávaných databází)",
           "en": "a list of citations (preferably by WoS, MathSciNet or other relevant databases)"
         }
       }, {
+        "typ": "Požadovaný dokument",
         "název": {
           "cs": "popis dosavadní pedagogické praxe",
           "en": "a description of teaching experience"
@@ -210,6 +215,7 @@ describe("JobPositionIO", () => {
       "sekce": "https://data.mff.cuni.cz/zdroj/číselníky/sekce/položky/informatika",
       "mzdová_třída": "https://data.mff.cuni.cz/zdroj/číselníky/mzdové-třídy/položky/AP3",
       "expertíza": [{
+        "typ": "Expertíza",
         "název": {
           "cs": "administrátor",
           "en": "admin"

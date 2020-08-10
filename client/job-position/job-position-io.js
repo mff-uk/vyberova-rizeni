@@ -177,7 +177,11 @@ export function JobPositionWriter() {
   function writePosition(position) {
     const result = {
       "@context": createContext(),
-      "typ": "Pracovní místo ve vědě a výzkumu",
+      "typ": [
+        "Pracovní místo",
+        "Pracovní místo ve vědě a výzkumu",
+        "Pracovní místo na MFF UK"
+      ],
       "iri": IRI_PREFIX + position["code"],
       "id": position["code"],
       "nástup_dle_dohody": position["fluidStart"],
@@ -231,13 +235,13 @@ export function JobPositionWriter() {
 
     result["expertíza"] = position["expertise"]
       .map((item) => multilanguageToJson(item))
-      .map((values) => ({"název": values}));
+      .map((values) => ({"typ": "Expertíza", "název": values}));
     result["kvalifikace"] = position["qualification"]
       .map((item) => multilanguageToJson(item))
       .map((values) => ({"typ": "Kvalifikace", "název": values}));
     result["požadované_dokumenty"] = position["documents"]
       .map((item) => multilanguageToJson(item))
-      .map((values) => ({"název": values}));
+      .map((values) => ({"typ": "Požadovaný dokument", "název": values}));
     return result;
   }
 
@@ -265,7 +269,6 @@ export function JobPositionWriter() {
 }
 
 function createContext() {
-  return "https://pod-test.mvcr.gov.cz/otevřené-formální-normy/" +
-    "pracovní-místa-ve-vědě-a-výzkumu/draft/kontexty/" +
-    "pracovní-místo-ve-vědě-a-výzkumu.jsonld";
+  return "https://data.mff.cuni.cz/" +
+    "dokumentace/pracovní-místa-mff-uk/kontexty/pracovní-místa-mff-uk.jsonld";
 }
