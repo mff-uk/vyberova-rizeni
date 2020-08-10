@@ -17,6 +17,8 @@
     >
       {{ item["nav-label"] }}
     </v-btn>
+    <v-spacer />
+    <about-dialog />
   </v-app-bar>
 </template>
 
@@ -26,9 +28,13 @@
     POSITION_STORE_NAME,
     GET_HAS_CHANGED,
   } from "../job-position/job-position-store";
+  import AboutDialog from "./about-dialog";
 
   export default {
     "name": "app-header",
+    "components": {
+      "about-dialog": AboutDialog,
+    },
     "computed": {
       "hasChanged": function () {
         const name = POSITION_STORE_NAME + "/" + GET_HAS_CHANGED;
